@@ -1,0 +1,425 @@
+/* ============================================================
+   QRCodeManager.css — Redesenhado
+   QR Codes de marketing Meta API (não é sessão WhatsApp Web).
+   ============================================================ */
+
+/* ── Overlay ─────────────────────────────────────────────── */
+.qrm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+/* ── Modal ───────────────────────────────────────────────── */
+.qrm-modal {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.qrm-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  flex-shrink: 0;
+}
+
+.qrm-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.qrm-header-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #0EA5A420;
+  color: #0EA5A4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qrm-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0 0 2px;
+}
+
+.qrm-subtitle {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.qrm-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.qrm-close:hover {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+/* ── Info box ────────────────────────────────────────────── */
+.qrm-info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--color-background-info);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  font-size: 12px;
+  color: var(--color-text-info);
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.qrm-info-box svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Body ────────────────────────────────────────────────── */
+.qrm-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Botão Criar ─────────────────────────────────────────── */
+.qrm-btn-create {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  background: #0EA5A4;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.15s;
+}
+
+.qrm-btn-create:hover {
+  background: #0B8483;
+}
+
+/* ── Formulário ──────────────────────────────────────────── */
+.qrm-form {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.qrm-form-header h3 {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.qrm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+
+.qrm-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.qrm-field textarea,
+.qrm-field select {
+  width: 100%;
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  resize: vertical;
+  transition: border-color 0.15s;
+}
+
+.qrm-field textarea:focus,
+.qrm-field select:focus {
+  outline: none;
+  border-color: #0EA5A4;
+}
+
+.qrm-char-count {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  align-self: flex-end;
+  margin-top: -2px;
+}
+
+.qrm-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.qrm-btn-cancel {
+  padding: 7px 14px;
+  background: transparent;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+}
+
+.qrm-btn-cancel:hover {
+  background: var(--color-background-secondary);
+}
+
+.qrm-btn-save {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: #0EA5A4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.qrm-btn-save:hover:not(:disabled) {
+  background: #0B8483;
+}
+
+.qrm-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Spinner / saving dot ────────────────────────────────── */
+.qrm-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2.5px solid var(--color-border-tertiary);
+  border-top-color: #0EA5A4;
+  border-radius: 50%;
+  animation: qrm-spin 0.8s linear infinite;
+}
+
+.qrm-saving-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: qrm-spin 0.7s linear infinite;
+}
+
+@keyframes qrm-spin { to { transform: rotate(360deg); } }
+
+/* ── Lista ───────────────────────────────────────────────── */
+.qrm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.qrm-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 36px 20px;
+  color: var(--color-text-secondary);
+}
+
+.qrm-empty-icon {
+  opacity: 0.3;
+  margin-bottom: 4px;
+}
+
+.qrm-empty p {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.qrm-empty span {
+  font-size: 12px;
+}
+
+/* ── Card individual ─────────────────────────────────────── */
+.qrm-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  transition: border-color 0.15s;
+}
+
+.qrm-card:hover {
+  border-color: var(--color-border-secondary);
+}
+
+/* Miniatura do QR */
+.qrm-card-qr {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid var(--color-border-tertiary);
+}
+
+.qrm-card-qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.qrm-card-qr-placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.4;
+}
+
+/* Info */
+.qrm-card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.qrm-card-code {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-info);
+  letter-spacing: 0.02em;
+  font-family: var(--font-mono, monospace);
+}
+
+.qrm-card-message {
+  font-size: 13px;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qrm-card-meta {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+/* Botões de ação */
+.qrm-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.qrm-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.qrm-action-btn:hover:not(:disabled) {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+.qrm-action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.qrm-action-delete:hover:not(:disabled) {
+  background: var(--color-background-danger);
+  color: var(--color-text-danger);
+}
+
+/* ── Botão reload ────────────────────────────────────────── */
+.qrm-btn-reload {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  align-self: center;
+  transition: background 0.15s;
+}
+
+.qrm-btn-reload:hover {
+  background: var(--color-background-secondary);
+}

@@ -1,0 +1,385 @@
+/* ============================================
+   📇 CONTACT SENDER - ENVIAR CONTATOS vCARD
+   ============================================ */
+
+.contact-sender-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.contact-sender-modal {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideUpFade 0.3s ease-out;
+}
+
+/* Header */
+.contact-sender-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.contact-sender-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+}
+
+.contact-sender-title svg {
+  color: #3b82f6;
+}
+
+.contact-sender-title h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.contact-sender-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.contact-sender-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Body */
+.contact-sender-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Sections */
+.contact-section {
+  background: var(--bg-secondary);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-header svg {
+  color: var(--whatsapp-green);
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Fields */
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.contact-field:last-child {
+  margin-bottom: 0;
+}
+
+.contact-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.2s;
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  outline: none;
+  border-color: var(--whatsapp-green);
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+}
+
+/* Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Phone/Email Items */
+.phone-item,
+.email-item,
+.address-item {
+  position: relative;
+  padding: 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.phone-item:last-child,
+.email-item:last-child,
+.address-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Buttons */
+.btn-add-item,
+.btn-add-section {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: 2px dashed var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-add-item:hover,
+.btn-add-section:hover {
+  border-color: var(--whatsapp-green);
+  color: var(--whatsapp-green);
+  background: rgba(37, 211, 102, 0.05);
+}
+
+.btn-remove-item {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 6px 12px;
+  /* Antes usava #fef2f2/#fecaca/#991b1b fixos (tom claro) — ficava sem
+     contraste nenhum sobre o fundo escuro do tema dark. rgba sobre a cor de
+     perigo do tema funciona nos dois temas sem precisar de um segundo jogo
+     de cores. */
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 4px;
+  color: #ef4444;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-remove-item:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* Contatos salvos */
+.saved-contact-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.saved-contact-picker select {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.saved-contact-delete {
+  position: static;
+  flex-shrink: 0;
+  padding: 8px 10px;
+}
+
+.btn-save-contact {
+  padding: 10px 20px;
+  background: none;
+  border: 1px solid var(--whatsapp-green);
+  border-radius: 8px;
+  color: var(--whatsapp-green);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  margin-right: auto;
+}
+
+.btn-save-contact:hover:not(:disabled) {
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.btn-save-contact:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-save-contact .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(37, 211, 102, 0.3);
+  border-top-color: var(--whatsapp-green);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Messages */
+.contact-sender-error {
+  padding: 12px;
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #ff4444;
+  font-size: 14px;
+}
+
+.contact-sender-success {
+  padding: 12px;
+  background: rgba(37, 211, 102, 0.1);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  border-radius: 8px;
+  color: var(--whatsapp-green);
+  font-size: 14px;
+}
+
+/* Footer */
+.contact-sender-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.btn-cancel {
+  padding: 10px 20px;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  background: var(--bg-hover);
+}
+
+.btn-send-contact {
+  padding: 10px 24px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-send-contact:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-send-contact:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-send-contact .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .contact-sender-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-sender-footer {
+    flex-direction: column;
+  }
+
+  .btn-cancel,
+  .btn-save-contact,
+  .btn-send-contact {
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+  }
+}

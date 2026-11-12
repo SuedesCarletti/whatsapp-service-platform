@@ -1,0 +1,2146 @@
+/* ============================================
+   WhatsApp Web Clone - Estilos Principais - DARK THEME
+   ============================================ */
+
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  background-color: var(--bg-chat);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+/* ============================================
+   CONTAINER PRINCIPAL
+   ============================================ */
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-chat);
+  position: relative;
+}
+
+/* ============================================
+   SIDEBAR (Lista de Conversas)
+   ============================================ */
+
+.sidebar {
+  width: 440px;
+  min-width: 340px;
+  max-width: 520px;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.sidebar-header {
+  height: 60px;
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.sidebar-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sidebar-header-account {
+  flex: 1;
+  min-width: 0;
+  max-width: 210px;
+  margin: 0 10px;
+}
+
+/* Dentro do header (linha única, altura fixa) o AccountSwitcher não precisa
+   do respiro vertical/lateral pensado pra quando ficava empilhado como uma
+   seção própria abaixo do header. */
+.sidebar-header-account .account-switcher {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.sidebar-header-icons {
+  display: flex;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 20px;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Busca */
+.search-container {
+  padding: 10px;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.search-box {
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 10px;
+}
+
+.search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.search-box input::placeholder {
+  color: var(--text-secondary);
+}
+
+.search-section-title {
+  padding: 10px 16px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--whatsapp-green);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Lista de Conversas */
+.conversations-list {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--bg-primary);
+}
+
+.conversation-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+  color: var(--text-primary);
+}
+
+.conversation-item:hover {
+  background-color: var(--bg-secondary);
+}
+
+.conversation-item.active {
+  background-color: var(--bg-secondary);
+}
+
+.conversation-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--avatar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.conversation-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.conversation-info {
+  flex: 1;
+  margin-left: 15px;
+  overflow: hidden;
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.conversation-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.conversation-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.conversation-last-message {
+  font-size: 14px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.unread-badge {
+  background-color: var(--whatsapp-green);
+  color: white;
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 6px;
+  margin-left: auto;
+}
+
+/* Alerta de bot travado/em loop (Conversation.bot_loop_detected) — pisca
+   vermelho na lista de conversas até um atendente assumir. */
+@keyframes bot-alert-blink {
+  0%, 100% { background-color: rgba(229, 62, 62, 0.12); }
+  50% { background-color: rgba(229, 62, 62, 0.4); }
+}
+.conversation-item.bot-alert {
+  animation: bot-alert-blink 1s ease-in-out infinite;
+}
+
+/* Mesmo alerta aplicado ao botão de bot na barra de atendimento do chat
+   aberto — pulsa em vez de piscar (o botão já tem cor sólida de fundo). */
+@keyframes bot-alert-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.6); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(229, 62, 62, 0); }
+}
+.bot-alert-button {
+  animation: bot-alert-pulse 1s ease-in-out infinite;
+}
+
+/* ============================================
+   CHAT AREA (FIXED LAYOUT)
+   ============================================ */
+
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-chat);
+  position: relative;
+}
+
+/* Overlay ao arrastar um arquivo do explorador por cima do chat (ChatArea.js
+   e InternalChatArea.js) — some assim que solta ou sai da área. */
+.chat-drop-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 165, 164, 0.12);
+  pointer-events: none;
+}
+
+.chat-drop-overlay-box {
+  border: 2px dashed var(--brand-orange, #0EA5A4);
+  border-radius: 12px;
+  background: var(--bg-primary, #fff);
+  color: var(--brand-orange, #0EA5A4);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 18px 28px;
+}
+
+/* Placeholder quando nenhum chat está selecionado */
+.chat-area.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--bg-primary);
+  gap: 20px;
+}
+
+.chat-placeholder-icon {
+  font-size: 100px;
+  color: var(--text-tertiary);
+}
+
+.chat-placeholder h2 {
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--text-primary);
+}
+
+.chat-placeholder p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+/* Header do Chat */
+.chat-header {
+  height: 60px;
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 22px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.chat-header .contact-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  transition: background-color 0.15s ease;
+}
+
+.chat-header .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-header .contact-info:hover {
+  background-color: var(--bg-hover);
+}
+
+.chat-header .contact-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 50%;
+    background-color: var(--avatar-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.chat-header .contact-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.chat-header .contact-status {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   FAIXA DE TAREFAS DA CONVERSA (chat interno/Equipe)
+   ============================================ */
+.conversation-tasks-strip {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.conversation-tasks-strip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 6px;
+}
+
+.conversation-tasks-strip-header span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.conversation-tasks-strip-header button {
+  background: none;
+  border: none;
+  color: var(--brand-orange, var(--whatsapp-green));
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+/* Botão de recolher/expandir — mais específico que a regra genérica acima
+   de propósito, pra não herdar a cor/peso do botão "+ Nova". */
+.conversation-tasks-strip-header button.conversation-tasks-strip-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-tertiary);
+  font-weight: 800;
+}
+
+.conversation-tasks-strip-badge {
+  background: #e02e2e;
+  color: #fff;
+  border-radius: 999px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.conversation-tasks-strip-list {
+  /* min() com vh — em janela baixa, 420px fixo comia quase toda a tela
+     (sobrava pouco espaço pra mensagens/composer); nunca passa de 40% da
+     altura da viewport, mesmo expandida. */
+  max-height: min(420px, 40vh);
+  overflow-y: auto;
+  padding: 0 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.conversation-tasks-strip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+
+.conversation-tasks-strip-item:hover {
+  background-color: var(--bg-hover);
+}
+
+/* Pausada precisa ser identificável de relance na faixa — antes ficava
+   misturada com as pendentes normais, mesmo checkbox e mesmo texto simples,
+   impossível notar sem abrir a tarefa. */
+.conversation-tasks-strip-item.paused {
+  background-color: rgba(245, 158, 11, 0.08);
+  border-left: 3px solid var(--brand-orange, #f59e0b);
+  padding-left: 3px;
+}
+
+.conversation-tasks-strip-item.paused:hover {
+  background-color: rgba(245, 158, 11, 0.14);
+}
+
+.conversation-tasks-strip-item input[type="checkbox"] {
+  margin-top: 3px;
+  width: 15px;
+  height: 15px;
+  accent-color: var(--brand-orange, var(--whatsapp-green));
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.conversation-tasks-strip-item-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.conversation-tasks-strip-item-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conversation-tasks-strip-item-title.done {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.conversation-tasks-strip-item-meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.conversation-tasks-strip-item-paused-tag {
+  color: var(--brand-orange, #f59e0b);
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+/* Mensagens Container */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden; /* FIX: Adicionado para prevenir expansão horizontal forçada */
+  padding: 20px;
+  background-image: var(--bg-chat-pattern); /* <-- CORREÇÃO APLICADA AQUI */
+  background-repeat: repeat;
+  background-size: 400px;
+  word-break: normal;
+}
+
+/* Divisor de data — embutido normalmente no fluxo do chat (Hoje/Ontem/dia
+   da semana/DD-MM-AAAA). NÃO é sticky: fica na posição natural entre as
+   mensagens do dia. Quando ele mesmo rola pra fora da tela, um segundo
+   elemento (.date-divider-floating, só 1 no DOM, controlado por JS via
+   scroll — ver recomputeFloatingDate em ChatArea.js) assume o lugar fixo no
+   topo, evitando qualquer sobreposição entre dois divisores ao mesmo tempo. */
+.date-divider {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+  pointer-events: none;
+}
+
+.date-divider span {
+  background: var(--bg-date-divider, rgba(0, 0, 0, 0.5));
+  color: var(--text-date-divider, #fff);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.date-divider-floating {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0 0 12px;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 8px;
+  animation: slideIn 0.2s ease-out;
+  word-break: normal;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.sent {
+  justify-content: flex-end;
+}
+
+.message.received {
+  justify-content: flex-start;
+}
+
+/* ============================================
+   MESSAGE LAYOUT (Bubbles, Text, Media, Reactions, Reply)
+   ============================================ */
+
+.message-bubble-container {
+  display: flex;
+  /* Centralizado, não flex-end: com flex-end o botão de ações ficava
+     grudado no canto inferior da bolha — em mensagens longas isso o deixa
+     "lá embaixo" em vez de claramente ao lado da mensagem inteira. */
+  align-items: center;
+  gap: 4px;
+  position: relative; /* ✅ Necessário para posicionamento absoluto dos menus */
+  /* O limite de 75% precisa estar aqui, não em .message-bubble: como este
+     container não tem largura própria (flex item shrink-to-fit), um
+     max-width:% no filho resolvia contra esse tamanho intermediário e
+     variava por mensagem (bolha "pulava" pra esquerda dependendo do
+     conteúdo) em vez de sempre respeitar a largura real da linha. */
+  max-width: 75%;
+}
+
+/* Garantir z-index adequado para elementos sobrepostos */
+.message-bubble-container {
+  z-index: 1;
+}
+
+.message-bubble-container:hover {
+  z-index: 10; /* Maior z-index ao passar o mouse para menus aparecerem por cima */
+}
+
+/* Notificação de sistema (grupo): participante removido/promovido, nome
+   alterado, etc. — sem bolha nem avatar, centralizada, como no WhatsApp. */
+.system-notification {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0;
+}
+
+.system-notification-text {
+  max-width: 80%;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  text-align: center;
+  word-break: break-word;
+}
+
+.system-notification-phone-link {
+  color: var(--whatsapp-blue);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.system-notification-phone-link:hover {
+  text-decoration: underline;
+}
+
+/* Destaque temporário ao clicar numa citação e "pular" pra mensagem
+   original (ver scrollToMessage em ChatArea.js) — pisca e desaparece
+   sozinho, só pra confirmar visualmente qual bolha é. */
+@keyframes message-highlight-flash {
+  0%, 100% { background-color: transparent; }
+  25% { background-color: rgba(255, 196, 0, 0.35); }
+}
+.message-highlight .message-bubble {
+  animation: message-highlight-flash 1.5s ease;
+}
+
+.message-bubble {
+  max-width: 100%; /* o limite de 75% da linha já vem de .message-bubble-container */
+  min-width: 80px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  position: relative;
+  box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+  display: inline-block;
+  width: fit-content;
+  padding-bottom: 18px;
+  color: var(--text-primary);
+  word-break: break-word;   /* FIX: Forçar quebra de palavras/strings longas */
+  overflow-wrap: break-word; /* FIX: Forçar quebra em strings que excedam a largura da bolha */
+}
+
+.message.sent .message-bubble {
+  background-color: var(--bg-message-sent);
+  color: #fff;
+  border-radius: 14px 14px 2px 14px;
+}
+
+.message.received .message-bubble {
+  background-color: var(--bg-message-received);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 14px 14px 14px 2px;
+}
+
+.message-content {
+  color: var(--text-primary);
+  font-size: 14.2px;
+  line-height: 19px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mensagem com só 1-3 emoji (sem nenhum outro texto) — igual ao WhatsApp,
+   renderiza bem maior que uma mensagem normal. Ver utils/emojiSize.js pra
+   quando essa classe é aplicada. */
+.emoji-only-message {
+  font-size: 38px;
+  line-height: 1.25;
+}
+
+.message.sent .message-content,
+.message.sent .message-caption {
+  color: #fff;
+}
+
+.message.sent .message-footer {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.message.sent .reply-author {
+  color: #fff;
+}
+
+.message.sent .reply-line {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Metadados da mensagem (hora, status) */
+/* CORREÇÃO DE NOME: Usando message-footer conforme componente React */
+.message-footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px; /* Tamanho base, já pequeno */
+  color: var(--text-secondary);
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  line-height: 1; /* Garante que não ocupe muita altura */
+}
+
+/* Garante que o texto da hora seja pequeno */
+.message-footer .message-time {
+  font-size: 11px; /* Garante o tamanho pequeno */
+  white-space: nowrap;
+}
+
+.message-status {
+  display: flex;
+  align-items: center;
+}
+
+/* Relógio (enviando) → 1 check (enviada) → 2 checks (entregue, branco) → 2
+   checks pretos (lida). Antes usava azul (#53bdeb) pra "lida" — ilegível
+   contra o fundo colorido da bolha enviada (que já é branco/claro por
+   padrão, ver .message.sent .message-content); preto contrasta melhor. */
+.message-status-icon {
+  color: #fff;
+  vertical-align: middle;
+}
+.message-status-icon.pending {
+  opacity: 0.6;
+}
+.message-status-icon.read {
+  color: #000;
+}
+.message-status-icon.failed {
+  color: #e53e3e;
+  font-weight: 700;
+}
+
+/* Mensagem com falha de entrega — recebida que se perdeu entre o WhatsApp e
+   o banco, ou enviada que não chegou no WhatsApp (ver ChatArea.js
+   renderDeliveryFailedBadge). Bolha esmaecida/tracejada pra ler como
+   "incompleta", igual ao padrão do WhatsApp real pra envio que falhou. */
+.message-bubble.delivery-failed {
+  opacity: 0.7;
+  border-style: dashed;
+  font-style: italic;
+}
+
+/* "!" vermelho sempre voltado pro centro da coluna — direita na recebida
+   (que fica à esquerda da tela), esquerda na enviada (que fica à direita) —
+   igual ao comportamento real do WhatsApp pra mensagem não entregue. */
+.message-delivery-failed-badge {
+  /* Flui como item normal do flex de .message-bubble-container (não
+     absoluto) — align-items:center do container já centraliza verticalmente
+     em relação à bolha, e `order` abaixo decide de que lado ela cai. */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: #e53e3e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 6;
+  flex-shrink: 0;
+}
+
+.message-delivery-failed-badge:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.message-delivery-failed-badge.received {
+  order: 1; /* depois da bolha no flex do container (recebida fica à esquerda) */
+  margin-left: 2px;
+}
+
+.message-delivery-failed-badge.sent {
+  order: -1; /* antes da bolha no flex do container (enviada fica à direita) */
+  margin-right: 2px;
+}
+
+.message-delivery-failed-badge .spin {
+  animation: message-retry-spin 0.8s linear infinite;
+}
+
+@keyframes message-retry-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Reação */
+.message-reaction {
+  position: absolute;
+  bottom: -8px;
+  right: 8px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2px 6px;
+  font-size: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   MÍDIA (Imagens, Vídeos, Áudio, Documentos)
+   ============================================ */
+
+.message-media {
+  max-width: 330px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.message-media img,
+.message-media video {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  cursor: pointer;
+}
+
+.message-media audio {
+  width: 250px;
+  max-width: 100%;
+  margin-top: 5px;
+}
+
+/* Player de áudio estilo WhatsApp (VoiceMessagePlayer.js) — botão play/pause
+   + forma de onda + contador de tempo, no lugar do <audio controls> nativo. */
+.voice-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 250px;
+  max-width: 100%;
+  margin-top: 5px;
+  color: var(--brand-orange, #0EA5A4);
+}
+
+.voice-player-toggle {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: currentColor;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.voice-player-toggle svg {
+  color: #fff;
+}
+
+.voice-player-bars {
+  flex: 1;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.voice-player-bar {
+  flex: 1;
+  min-width: 2px;
+  max-width: 3px;
+  border-radius: 2px;
+  background-color: var(--border-color, #999);
+  opacity: 0.6;
+}
+
+.voice-player-time {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: var(--text-secondary);
+  min-width: 32px;
+  text-align: right;
+}
+
+.voice-player-speed {
+  flex: 0 0 auto;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 3px 6px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.voice-player-speed:hover {
+  opacity: 1;
+}
+
+.message-document {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  max-width: 330px;
+}
+
+.message-document:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.message-document-name {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.message-document-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 3px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.message-document-size {
+  white-space: nowrap;
+}
+
+.message-document-meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.document-icon {
+  font-size: 32px;
+  color: var(--text-secondary);
+}
+
+.document-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.document-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.document-size {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Localização e Contatos */
+.message-location {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 330px;
+}
+
+.message-location .location-header {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.message-location .location-address {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.message-location a {
+  color: var(--whatsapp-green);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.message-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 330px;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  /* Antes era rgba(255,255,255,0.05) fixo — pensado só pra bolha escura do
+     WhatsApp dark. Numa bolha clara (tema light, ou bolha de saída em
+     qualquer tema) isso é quase invisível: sem contorno, sem contraste no
+     avatar, sem separador visível pro botão "Conversar". color-mix() com
+     currentColor se adapta sozinho à cor do texto da bolha em qualquer
+     combinação de tema/direção da mensagem, sem precisar de um segundo
+     jogo de cores pra cada caso. */
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.contact-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.contact-card-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.contact-card-identity {
+  min-width: 0;
+}
+
+.contact-card .contact-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: inherit;
+}
+
+.contact-card-clickable {
+  cursor: pointer;
+}
+
+.contact-card-clickable:hover {
+  background: color-mix(in srgb, currentColor 11%, transparent);
+}
+
+.contact-card .contact-phone {
+  font-size: 13px;
+  color: inherit;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+.contact-chat-btn-full {
+  width: 100%;
+  background: none;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  /* Não usa var(--whatsapp-green) aqui: nesta marca ele É a mesma cor de
+     --bg-message-sent (#0EA5A4) — numa bolha de saída o texto do botão
+     ficava exatamente da cor do fundo, literalmente invisível. `inherit`
+     pega a cor de texto da própria bolha (branco na de saída, text-primary
+     na de entrada), que já tem contraste garantido contra o fundo dela. */
+  color: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.contact-chat-btn-full:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+/* Caption */
+.message-caption {
+  margin-top: 5px;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 19px;
+}
+
+/* ============================================
+   MENSAGENS INTERATIVAS (Reply, Buttons, Lists)
+   ============================================ */
+
+.reply-context {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--whatsapp-green);
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.reply-context-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--whatsapp-green);
+  margin-bottom: 2px;
+}
+
+.reply-context-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Reply indicator inside message bubble (cited message) */
+.reply-indicator {
+  display: flex;
+  align-items: stretch;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.message.sent .reply-indicator {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.message.received .reply-indicator {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.reply-line {
+  width: 4px;
+  min-width: 4px;
+  background-color: var(--whatsapp-green);
+  border-radius: 3px 0 0 3px;
+}
+
+.reply-content {
+  padding: 5px 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.reply-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--whatsapp-green);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reply-text {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.reply-text--faded {
+  opacity: 0.55;
+  font-style: italic;
+}
+
+.reply-indicator--unknown .reply-line {
+  background-color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.reply-indicator--unknown .reply-author {
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   EMOJI PICKER & REACTIONS
+   ============================================ */
+
+.emoji-picker {
+  position: absolute;
+  bottom: calc(100% + 8px); /* ✅ Acima do botão */
+  right: 0;
+  background-color: var(--bg-primary); /* ✅ Cor adaptada ao tema */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  gap: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  animation: slideUp 0.2s ease-out;
+}
+
+/* Alinhamento para mensagens enviadas */
+.message.sent .emoji-picker {
+  left: 0;
+  right: auto;
+}
+
+/* BUG (2026-09-10, reportado ao vivo — "inaceitável"): a aba de emoji
+   completa (320x350px) herdava o posicionamento acima (absolute, ancorado
+   na bolha da mensagem, sem nenhum limite de viewport) — pra mensagens
+   recebidas perto da borda esquerda do chat (ancoradas com right:0,
+   crescendo pra esquerda), isso empurrava o popover pra dentro da sidebar.
+   O popover fixo dos 10 emojis antigos era estreito o bastante pra nunca
+   estourar; o EmojiPicker de verdade não. Em vez de tentar calcular limites
+   de viewport em JS, fixa como popover centralizado na tela (position:
+   fixed) — nunca depende de onde a mensagem está, nunca vaza pra fora do
+   chat nem pra dentro da sidebar. */
+.emoji-picker--full {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  animation: none;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emoji-picker button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.emoji-picker button:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* ============================================
+   POPOVER COMBINADO DE EMOJI + STICKERS
+   Um botão só no composer abre isso, com abas — igual ao design (o
+   protótipo só mostra um ícone de emoji, sem botão de sticker separado).
+   ============================================ */
+.emoji-sticker-popover {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.emoji-sticker-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+}
+
+.emoji-sticker-tabs button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.emoji-sticker-tabs button.active {
+  color: var(--brand-orange);
+  border-bottom-color: var(--brand-orange);
+}
+
+.gif-picker-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 8px 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  align-content: start;
+}
+
+.gif-picker-empty {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 8px 2px;
+}
+
+.gif-picker-item {
+  position: relative;
+  width: 100%;
+  height: 0;
+  /* Truque clássico pra quadrado responsivo: padding vertical em % é
+     relativo à LARGURA do próprio elemento — mais compatível entre
+     navegadores do que a propriedade aspect-ratio. */
+  padding-top: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+}
+
+.gif-picker-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gif-picker-item-sending {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 11px;
+}
+
+/* BUG (2026-09-04): mesmo problema do gif-picker antes de virar classe CSS
+   — aspect-ratio inline (StickerPicker.js) não renderizava um grid de
+   verdade em alguns navegadores, os stickers empilhavam ao invés de ficar
+   lado a lado. Mesmo truque de padding-top:100%. */
+.sticker-picker-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.sticker-picker-add-btn {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--whatsapp-green, #25D366);
+  cursor: pointer;
+}
+
+.sticker-picker-add-btn svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sticker-picker-item {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.sticker-picker-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sticker-picker-remove-btn {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ============================================
+   MESSAGE ACTION MENU
+   ============================================ */
+
+.message-action-menu {
+  position: absolute;
+  bottom: 100%; /* FIX: Mudar para bottom: 100% para abrir para cima por padrão */
+  right: 0; /* FIX: Ancorar à direita (Expande para dentro em 'received') */
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  min-width: 180px;
+  padding: 5px;
+  animation: fadeIn 0.2s ease-out;
+  margin-bottom: 5px; /* FIX: Usar margin-bottom para espaçar do botão */
+  top: auto; /* Garantir que top não interfira */
+}
+
+/* Alinhamento para mensagens enviadas (à direita) */
+.message.sent .message-action-menu {
+  right: auto;
+  left: 0; /* FIX: Ancorar à esquerda (Expande para dentro em 'sent') */
+}
+
+/* ⭐ NOVO: Classes dinâmicas para controle de direção (JS) */
+.message-action-menu.open-downwards {
+  top: 100%; /* Abrir para baixo */
+  bottom: auto;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+/* Flip horizontal calculado em JS (handleOpenMessageMenu) — o alinhamento
+   padrão (recebida cresce pra esquerda, enviada cresce pra direita) estoura
+   a tela em bolhas estreitas perto de uma borda; isso força o lado oposto
+   quando o menu, já renderizado, não coube. */
+.message-action-menu.force-align-left {
+  left: 0 !important;
+  right: auto !important;
+}
+
+.message-action-menu.force-align-right {
+  right: 0 !important;
+  left: auto !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.message-action-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  color: var(--text-primary); /* ✅ Cor adaptada ao tema */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: left;
+  border-radius: 6px;
+}
+
+.message-action-menu button:hover {
+  background: var(--bg-hover);
+}
+
+.message-action-menu button svg {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.message-action-menu button:hover svg {
+  color: var(--whatsapp-green);
+}
+
+/* Régua de reações rápidas no topo do menu de ações */
+.message-action-menu-reactions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 4px 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.message-action-menu-reaction-btn {
+  /* !important necessário: ".message-action-menu button" (regra genérica
+     dos itens de lista) tem especificidade maior que uma classe sozinha e
+     forçava width:100% aqui, estourando os emojis pra fora do menu. */
+  width: 30px !important;
+  height: 30px !important;
+  flex: 0 0 auto;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.message-action-menu-reaction-btn:hover {
+  background: var(--bg-hover);
+  transform: scale(1.2);
+}
+
+.message-action-menu-danger {
+  color: var(--danger-color) !important;
+}
+
+.message-action-menu-danger svg {
+  color: var(--danger-color) !important;
+}
+
+/* ============================================
+   INPUT DE MENSAGEM
+   ============================================ */
+
+/* Número de telefone detectado em texto de mensagem — clicável, igual ao
+   WhatsApp de verdade (ver utils/phoneLink.js). */
+.wa-phone-link {
+  color: #34b7f1;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Botão flutuante "ir para o final" — some quando já está perto do fim
+   (ver showScrollToBottom em ChatArea.js/InternalChatArea.js). Posicionado
+   relativo a .chat-area (position:relative), por cima do composer. */
+.scroll-to-bottom-btn {
+  position: absolute;
+  right: 24px;
+  bottom: 88px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-primary, #fff);
+  color: var(--text-secondary, #54656f);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.scroll-to-bottom-btn:hover {
+  background: var(--bg-hover, #f0f0f0);
+}
+
+.message-input-container {
+  background-color: var(--bg-secondary);
+  padding: 14px 22px;
+  display: flex;
+  /* flex-end (não center): a caixa de texto cresce em altura conforme
+     quebra linha — os botões ao lado (anexo, mic/enviar) precisam ficar
+     grudados embaixo, igual ao WhatsApp, em vez de flutuar no meio. */
+  align-items: flex-end;
+  gap: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.window-warning-banner {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border-top: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 8px 16px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.message-input-box {
+  flex: 1;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message-input-box textarea {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: inherit;
+  resize: none;
+  /* altura controlada via JS (ver useEffect de auto-resize em ChatArea.js) —
+     cresce conforme o texto quebra linha (digitada ou Shift+Enter), até um
+     teto de 120px, quando vira scroll interno em vez de continuar crescendo. */
+  overflow-y: hidden;
+  line-height: 20px;
+  max-height: 120px;
+}
+
+.message-input-box textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Modo nota interna: fundo amarelo claro fixo (post-it), independente do
+   tema — placeholder/texto do input precisam de cor escura fixa também,
+   senão o tema escuro deixa o texto digitado ilegível (quase branco sobre
+   amarelo claro). Cor do texto em si vem via inline style (ChatArea.js). */
+.message-input-box textarea.note-mode-input::placeholder {
+  color: #8a7433;
+}
+
+.attach-button,
+.send-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 24px;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.attach-button:hover,
+.send-button:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-tertiary);
+}
+
+.send-button {
+  color: var(--whatsapp-green);
+}
+
+.send-button:hover {
+  color: var(--whatsapp-green);
+  background-color: var(--bg-tertiary);
+}
+
+/* Preview de arquivo */
+.file-preview-container {
+    padding: 10px 16px;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.file-preview-content {
+    position: relative;
+    padding: 8px;
+    background-color: var(--bg-tertiary);
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.file-preview-image {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 6px;
+}
+
+.remove-file-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   FEATURE MENU (Para Feature Sender Actions)
+   ============================================ */
+
+.feature-menu-wrapper {
+  position: relative;
+}
+
+.feature-action-menu {
+  position: absolute;
+  bottom: calc(100% + 8px); /* ✅ Expandindo PARA CIMA */
+  left: 0;
+  background-color: var(--bg-primary); /* ✅ Cor adaptada ao tema */
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  min-width: 240px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  animation: slideUpMenu 0.2s ease-out;
+}
+
+@keyframes slideUpMenu {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-action-menu-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.feature-action-menu-header span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary); /* ✅ Cor adaptada ao tema */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.feature-action-menu button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--text-primary); /* ✅ Cor adaptada ao tema */
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.feature-action-menu button:hover:not(:disabled) {
+  background-color: var(--bg-tertiary);
+}
+
+.feature-action-menu button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feature-action-menu button svg {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.feature-action-menu button:hover:not(:disabled) svg {
+  color: var(--whatsapp-green);
+}
+
+.feature-action-menu .menu-separator {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 4px 8px;
+}
+
+/* Cores dos ícones do Feature Menu */
+.feature-menu-item-icon.image {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.feature-menu-item-icon.video {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.feature-menu-item-icon.audio {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.feature-menu-item-icon.document {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.feature-menu-item-icon.sticker {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.feature-menu-item-icon.location {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+.feature-menu-item-icon.contact {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.feature-menu-item-icon.template {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.feature-menu-item-icon.list {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.feature-menu-item-icon.product {
+  background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+}
+
+/* ============================================
+   REPLY CONTEXT BAR
+   ============================================ */
+
+.reply-context-bar {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reply-context-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.reply-context-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--whatsapp-green);
+}
+
+.reply-context-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cancel-reply-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel-reply-btn:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.loading-spinner .spinner {
+  width: 40px;
+  height: 40px;
+}
+
+/* Sobreposto no canto superior direito da própria bolha — igual ao
+   WhatsApp real (não um botão "3 pontos" reservando espaço ao lado). Como
+   ele sai do fluxo do flex (position:absolute), o container encolhe pro
+   tamanho da bolha, então top/right aqui alinham certinho com o canto
+   dela. */
+.message-actions-button {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.15);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Oculto por padrão, aparece no hover */
+}
+
+.message.received .message-actions-button {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--text-secondary);
+}
+
+/* Mostrar botão ao passar o mouse sobre a mensagem */
+.message-bubble-container:hover .message-actions-button {
+  opacity: 1;
+}
+
+.message-actions-button:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.message.received .message-actions-button:hover {
+  background-color: rgba(0, 0, 0, 0.14);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   MODAL GENÉRICO
+   Usado por vários componentes (BroadcastManagerModal, TaskModal,
+   TaskDetailModal, NewChatModal, NewInternalChatModal,
+   InternalGroupManager...) via as classes soltas ".modal-overlay"/".modal"/
+   ".modal-header"/".modal-body"/".modal-close"/".btn-primary" — nenhuma
+   delas tinha definição em lugar nenhum do projeto, então esses modais
+   renderizavam sem estilo nenhum (chrome puro do navegador, input branco
+   fixo mesmo no tema escuro).
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.modal,
+.modal-content {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  width: 440px;
+  max-width: 92vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  color: var(--text-primary);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.modal-header h2,
+.modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.modal-body label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+/* :not([type=checkbox]):not([type=radio]) é necessário — sem isso, essa
+   regra também esticava checkboxes soltos dentro de modal-body (ex: cada
+   item de subtarefa no TaskDetailModal) pra width:100% da linha inteira,
+   sobrando largura zero pro texto ao lado (ficava cortado/quebrado fora da
+   linha). O checkbox principal da tarefa escapava disso só por ter
+   width:18 inline (inline sempre vence CSS externo). */
+.modal-body input:not([type="checkbox"]):not([type="radio"]),
+.modal-body textarea,
+.modal-body select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.modal-body input:not([type="checkbox"]):not([type="radio"]):focus,
+.modal-body textarea:focus,
+.modal-body select:focus {
+  outline: none;
+  border-color: var(--brand-orange, var(--whatsapp-green));
+}
+
+.btn-primary {
+  background: var(--brand-orange, var(--whatsapp-green));
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--brand-orange-hover, var(--whatsapp-green-dark));
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-hover);
+}

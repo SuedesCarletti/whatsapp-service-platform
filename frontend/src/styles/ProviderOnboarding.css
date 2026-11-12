@@ -1,0 +1,569 @@
+/* frontend/src/styles/ProviderOnboarding.css
+   Estilos do wizard de onboarding de providers
+*/
+
+/* ── Container ── */
+.onboarding-container {
+  width: 100%;
+  padding: 20px;
+  color: var(--text-primary, #e9edef);
+}
+
+.onboarding-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary, #e9edef);
+}
+
+/* ── Grid de providers (Step 1) ── */
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.provider-card {
+  background: var(--bg-secondary, #202c33);
+  border: 1.5px solid var(--border-color, #2a3942);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.provider-card:hover {
+  border-color: var(--whatsapp-green, #25D366);
+  transform: translateY(-2px);
+}
+
+.provider-card.recommended {
+  border-color: rgba(37, 211, 102, 0.3);
+}
+
+.provider-card.risky {
+  border-color: rgba(255, 152, 0, 0.3);
+}
+
+.provider-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #e9edef);
+  margin: 0;
+}
+
+.provider-card .tier {
+  font-size: 11px;
+  color: var(--whatsapp-green, #25D366);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.provider-card .price {
+  font-size: 13px;
+  color: var(--text-primary, #e9edef);
+  font-weight: 500;
+  margin: 0;
+}
+
+.provider-card .risk {
+  font-size: 12px;
+  color: var(--text-secondary, #8696a0);
+  margin: 0;
+}
+
+.provider-card .badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 8px;
+  background: rgba(47, 174, 96, 0.1);
+  border-radius: 10px;
+  font-size: 11px;
+  color: var(--whatsapp-green, #25D366);
+  font-weight: 600;
+  width: fit-content;
+}
+
+/* ── Setup form (Step 2) ── */
+.step-account-setup form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #e9edef);
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px 12px;
+  background: var(--bg-secondary, #202c33);
+  border: 1px solid var(--border-color, #2a3942);
+  border-radius: 8px;
+  color: var(--text-primary, #e9edef);
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--whatsapp-green, #25D366);
+}
+
+.form-group input::placeholder {
+  color: var(--text-secondary, #8696a0);
+}
+
+/* ── Ações do form ── */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.form-actions button[type="submit"],
+.form-actions button:not(.onboarding-cancel-btn) {
+  padding: 10px 20px;
+  background: var(--whatsapp-green, #25D366);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.form-actions button[type="submit"]:hover,
+.form-actions button:not(.onboarding-cancel-btn):hover {
+  background: var(--whatsapp-green-dark, #128C7E);
+}
+
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Botão cancelar/voltar ── */
+.onboarding-cancel-btn {
+  background: none;
+  border: none;
+  color: var(--whatsapp-green, #25D366);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0;
+  display: inline-block;
+}
+
+.onboarding-cancel-btn:hover { text-decoration: underline; }
+
+/* ── QR Code (Step 3) ── */
+.step-qr-code {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.qr-container {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.qr-container img {
+  width: 220px;
+  height: 220px;
+  display: block;
+}
+
+.qr-instructions {
+  font-size: 13px;
+  color: var(--text-secondary, #8696a0);
+  line-height: 1.8;
+  text-align: left;
+  background: var(--bg-secondary, #202c33);
+  padding: 14px 18px;
+  border-radius: 10px;
+  max-width: 340px;
+}
+
+/*
+ * ProviderOnboarding.css — patch de adição
+ *
+ * ADICIONE estas regras ao final do arquivo existente:
+ *   frontend/src/styles/ProviderOnboarding.css
+ *
+ * Não substitua o arquivo inteiro — só acrescente o bloco abaixo.
+ */
+ 
+/* ── Dica/hint abaixo de um campo ── */
+.form-hint {
+  font-size: 11px;
+  color: var(--color-text-secondary, #8696a0);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+ 
+/* ── Aviso de provider não-oficial ── */
+.provider-warning {
+  padding: 10px 14px;
+  background: rgba(255, 152, 0, 0.08);
+  border: 0.5px solid rgba(255, 152, 0, 0.3);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary, #8696a0);
+  line-height: 1.5;
+}
+ 
+/* ── Step 3: container do WhatsAppLinkPanel ── */
+.step-link-session {
+  width: 100%;
+  padding: 0;
+}
+
+/* ── Cabeçalho de grupo (Contas Meta / Bridges) ── */
+.provider-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #e9edef);
+  margin: 20px 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.provider-group-title:first-of-type {
+  margin-top: 4px;
+}
+
+.provider-group-subtitle {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text-secondary, #8696a0);
+}
+
+/* ── Card de bridge inativo (Venom) ── */
+.provider-card.inactive {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.provider-card.inactive:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: none;
+}
+
+.provider-card .risk-caption {
+  font-size: 10px;
+  color: var(--text-secondary, #8696a0);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 3px 0 0;
+}
+
+/* ── Termômetro de risco (4 segmentos, verde → vermelho) ──
+   Track sempre visível (cinza); segmentos até o tier da bridge acendem na
+   cor da escala — leitura mais rápida que só um rótulo de texto. */
+.risk-meter {
+  display: flex;
+  gap: 3px;
+  margin: 6px 0 2px;
+}
+
+.risk-meter-segment {
+  flex: 1;
+  height: 6px;
+  min-width: 10px;
+  border-radius: 3px;
+  background: var(--border-color, #2a3942);
+  transition: background 0.2s;
+}
+
+/* ── Escala de automação/IA (4 segmentos, cinza-azulado → azul cheio) ──
+   Eixo separado do risco de ban — mais segmentos acesos aqui é BOM (mais
+   adequado a fluxos automatizados), por isso a cor é azul, não vermelho. */
+.automation-meter {
+  display: flex;
+  gap: 3px;
+  margin: 6px 0 2px;
+}
+
+.automation-meter-segment {
+  flex: 1;
+  height: 6px;
+  min-width: 10px;
+  border-radius: 3px;
+  background: var(--border-color, #2a3942);
+  transition: background 0.2s;
+}
+
+/* ── Aviso detalhado por bridge (Step 2) ── */
+.provider-warning--detailed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.provider-warning-risk-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.provider-warning-risk-row .risk-meter,
+.provider-warning-risk-row .automation-meter {
+  flex: 0 0 90px;
+  margin: 0;
+}
+
+.provider-warning-risk {
+  font-weight: 600;
+  color: var(--text-primary, #e9edef);
+  margin: 0;
+}
+
+.provider-warning-subtitle {
+  font-weight: 600;
+  color: var(--text-primary, #e9edef);
+  margin: 4px 0 0;
+}
+
+.provider-warning--detailed ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.provider-warning--detailed li {
+  line-height: 1.5;
+}
+
+/* ── Embedded Signup ("Continuar com o Facebook") ──────────────── */
+
+.es-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.es-fb-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #1877F2;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.es-fb-btn:hover:not(:disabled) {
+  background: #166FE5;
+}
+
+.es-fb-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.es-link-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary, #8696A0);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: center;
+}
+
+.es-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.es-box-error {
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.4);
+  color: #F44336;
+}
+
+.es-box-warn {
+  background: rgba(236, 178, 46, 0.1);
+  border: 1px solid rgba(236, 178, 46, 0.4);
+  color: #ECB22E;
+}
+
+.es-box-ok {
+  background: rgba(47, 174, 96, 0.1);
+  border: 1px solid rgba(47, 174, 96, 0.4);
+  color: #2FAE60;
+}
+
+.es-pin-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--bg-secondary, #202C33);
+  border: 1px solid var(--border-color, #2A3942);
+}
+
+.es-pin-input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #2A3942);
+  background: var(--bg-tertiary, #2A3942);
+  color: var(--text-primary, #E9EDEF);
+  font-size: 20px;
+  letter-spacing: 6px;
+  text-align: center;
+  max-width: 160px;
+}
+
+.es-btn {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--whatsapp-green, #25D366);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.es-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.es-intro {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary, #8696A0);
+}
+
+.es-sub {
+  font-size: 11px;
+  color: var(--text-secondary, #8696A0);
+  text-align: center;
+  margin-top: -4px;
+}
+
+.es-box strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.es-pin-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary, #E9EDEF);
+}
+
+.es-pin-step p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary, #8696A0);
+}
+
+.es-pin-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.es-icon-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color, #2A3942);
+  background: var(--bg-tertiary, #2A3942);
+  color: var(--text-secondary, #8696A0);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.es-icon-btn:hover:not(:disabled) {
+  color: var(--text-primary, #E9EDEF);
+}
+
+.es-icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.es-pin-copied {
+  font-size: 12px;
+  color: var(--whatsapp-green, #25D366);
+  margin-top: -6px;
+}
+
+.es-detail-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 11px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.es-detail-text {
+  margin-top: 4px;
+  font-size: 11px;
+  font-family: monospace;
+  opacity: 0.8;
+  word-break: break-word;
+}
+
+.onboarding-manual-toggle {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0 12px;
+}
+

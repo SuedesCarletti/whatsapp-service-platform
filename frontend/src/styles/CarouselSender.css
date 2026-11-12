@@ -1,0 +1,259 @@
+/* ============================================
+   🎠 CAROUSEL SENDER - CARDS HORIZONTAIS
+   ============================================ */
+
+.carousel-sender-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.carousel-sender-modal {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 640px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Header */
+.carousel-sender-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.carousel-sender-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+}
+
+.carousel-sender-title svg {
+  color: var(--whatsapp-green);
+}
+
+.carousel-sender-title h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.carousel-sender-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.carousel-sender-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Body */
+.carousel-sender-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.carousel-info {
+  margin: 0;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  border-left: 3px solid var(--whatsapp-green);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Card editor */
+.carousel-card-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-number {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.remove-card-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  transition: all 0.2s;
+}
+
+.remove-card-btn:hover {
+  background: #fef2f2;
+}
+
+.carousel-card-editor .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.carousel-card-editor .form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.carousel-card-editor .form-group input,
+.carousel-card-editor .form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.carousel-card-editor .form-group textarea {
+  min-height: 64px;
+  resize: vertical;
+}
+
+.carousel-card-editor .form-group input:focus,
+.carousel-card-editor .form-group textarea:focus {
+  outline: none;
+  border-color: var(--whatsapp-green);
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+}
+
+.carousel-card-editor .form-group small {
+  font-size: 12px;
+  color: var(--text-secondary);
+  align-self: flex-end;
+}
+
+.add-card-btn {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: 2px dashed var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.add-card-btn:hover {
+  border-color: var(--whatsapp-green);
+  color: var(--whatsapp-green);
+  background: rgba(37, 211, 102, 0.05);
+}
+
+/* Footer */
+.carousel-sender-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.carousel-sender-footer .btn-cancel {
+  padding: 10px 20px;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.carousel-sender-footer .btn-cancel:hover {
+  background: var(--bg-hover);
+}
+
+.carousel-sender-footer .btn-send {
+  padding: 10px 24px;
+  background: var(--whatsapp-green);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.carousel-sender-footer .btn-send:hover:not(:disabled) {
+  background: var(--whatsapp-green-dark);
+}
+
+.carousel-sender-footer .btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .carousel-sender-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .carousel-sender-footer {
+    flex-direction: column;
+  }
+
+  .carousel-sender-footer .btn-cancel,
+  .carousel-sender-footer .btn-send {
+    width: 100%;
+    justify-content: center;
+  }
+}

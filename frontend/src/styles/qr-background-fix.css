@@ -1,0 +1,143 @@
+/*
+ * qr-background-fix.css
+ *
+ * Corrige QR codes invisíveis no tema escuro.
+ * QR codes sempre precisam de fundo branco — os módulos são pretos
+ * e somem quando o container herda o fundo escuro do tema.
+ *
+ * COMO USAR:
+ *   Importe este arquivo no App.js ou index.js:
+ *   import './styles/qr-background-fix.css';
+ *
+ * Arquivo cobre:
+ *   1. QRCodeManager  — QR de marketing (menu lateral ⋮)
+ *   2. TemplateManager / template preview — QR de templates
+ *   3. ProviderOnboarding — QR de sessão (legado, agora usa WhatsAppLinkPanel)
+ *   4. WhatsAppLinkPanel  — já tem background:#fff, mas reforçado aqui
+ *   5. Qualquer <img> dentro de .qr-container, .qr-wrap, .qr-frame
+ */
+
+/* ══ Regra universal: qualquer imagem QR ════════════════════════
+   Aplica fundo branco + padding ao redor da imagem, independente
+   do componente que a renderiza. Usa especificidade alta mas não
+   !important para respeitar overrides locais quando necessário.  */
+
+.qr-container,
+.qr-wrap,
+.qr-frame,
+.qrm-card-qr,
+.qrm-preview-qr-wrap,
+.sqr-qr-frame,
+.wlp-qr-frame,
+[class*="qr-box"],
+[class*="qr-preview"] {
+  background: #ffffff !important;
+  padding: 8px !important;
+  border-radius: 8px;
+}
+
+/* Imagens QR dentro desses containers — sem misturar com o fundo */
+.qr-container img,
+.qr-wrap img,
+.qr-frame img,
+.qrm-card-qr img,
+.qrm-preview-qr-wrap img,
+.sqr-qr-frame img,
+.wlp-qr-frame img,
+[class*="qr-box"] img,
+[class*="qr-preview"] img {
+  display: block;
+  background: #ffffff;
+  image-rendering: pixelated; /* mantém módulos nítidos */
+}
+
+/* ══ QRCodeManager — card miniatura ════════════════════════════ */
+/* A miniatura do QR na lista de QR codes de marketing          */
+.qrm-card-qr {
+  background: #ffffff !important;
+  padding: 6px !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.qrm-card-qr-img {
+  background: #ffffff;
+}
+
+/* Placeholder quando QR ainda não foi gerado — mantém contraste */
+.qrm-card-qr-placeholder {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+/* ══ QRCodeManager — modal de preview / detalhe ════════════════ */
+.qrm-preview-qr-wrap {
+  background: #ffffff !important;
+  padding: 16px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+/* ══ ProviderOnboarding — QR legado (step 3 antigo) ═══════════ */
+/* Mantido por compatibilidade caso algum provider ainda use o
+   step 3 estático antes da migração para WhatsAppLinkPanel.      */
+.step-qr-code .qr-container {
+  background: #ffffff !important;
+  padding: 16px !important;
+  border-radius: 12px !important;
+  display: inline-block;
+}
+
+.step-qr-code .qr-container img {
+  width: 220px;
+  height: 220px;
+  display: block;
+  background: #ffffff;
+}
+
+/* ══ Templates — preview de QR em modais de template ══════════ */
+/* Cobre qualquer modal/card de template que exiba um QR         */
+.template-qr-preview,
+.template-preview-qr,
+.msg-template-qr,
+[class*="template"] .qr-container,
+[class*="template"] .qr-wrap {
+  background: #ffffff !important;
+  padding: 8px !important;
+  border-radius: 8px !important;
+}
+
+[class*="template"] .qr-container img,
+[class*="template"] .qr-wrap img {
+  background: #ffffff;
+  display: block;
+}
+
+/* ══ Canvas gerado por qrcode.js / qr-scanner ══════════════════ */
+/* Quando QR é renderizado em <canvas> ao invés de <img>         */
+canvas[aria-label*="QR"],
+canvas[data-qr],
+.qr-container canvas,
+.qr-wrap canvas,
+.qrm-card-qr canvas,
+.qrm-preview-qr-wrap canvas,
+.wlp-qr-frame canvas {
+  background: #ffffff !important;
+  border-radius: 4px;
+}
+
+/* ══ Dark mode — reforço explícito ════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  .qr-container,
+  .qr-wrap,
+  .qr-frame,
+  .qrm-card-qr,
+  .qrm-preview-qr-wrap,
+  .sqr-qr-frame,
+  .wlp-qr-frame,
+  [class*="qr-box"],
+  [class*="qr-preview"] {
+    background: #ffffff !important;
+  }
+}

@@ -1,0 +1,348 @@
+/* ============================================================
+   SessionQRCode.css
+   QR Code de sessão para providers não-oficiais em Settings.
+   Estética limpa, inspirada no WhatsApp Web.
+   ============================================================ */
+
+/* ── Wrapper ────────────────────────────────────────────── */
+.sqr-wrapper {
+  width: 100%;
+  padding: 0;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.sqr-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sqr-provider-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1.5px solid;
+  border-radius: 99px;
+  background: transparent;
+}
+
+.sqr-provider-emoji {
+  font-size: 14px;
+}
+
+.sqr-provider-name {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.sqr-account-name {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+/* ── Disclaimer ─────────────────────────────────────────── */
+.sqr-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 8px 10px;
+  margin-bottom: 16px;
+  background: var(--warning-bg);
+  border: 0.5px solid var(--warning-border);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--warning-text);
+  line-height: 1.5;
+}
+
+.sqr-disclaimer-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Centro (loading / success / error) ─────────────────── */
+.sqr-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 16px;
+  gap: 10px;
+  text-align: center;
+}
+
+/* ── Spinner ─────────────────────────────────────────────── */
+.sqr-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-border-tertiary);
+  border-top-color: #0EA5A4;
+  border-radius: 50%;
+  animation: sqr-spin 0.8s linear infinite;
+}
+
+@keyframes sqr-spin {
+  to { transform: rotate(360deg); }
+}
+
+.sqr-status-text {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ── Área do QR ─────────────────────────────────────────── */
+.sqr-qr-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.sqr-qr-frame {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 0.5px rgba(0,0,0,0.1);
+}
+
+/* Cantos decorativos estilo WhatsApp Web */
+.sqr-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: #0EA5A4;
+  border-style: solid;
+  z-index: 1;
+}
+
+.sqr-corner-tl { top: 4px; left: 4px;  border-width: 2.5px 0 0 2.5px; border-radius: 4px 0 0 0; }
+.sqr-corner-tr { top: 4px; right: 4px; border-width: 2.5px 2.5px 0 0; border-radius: 0 4px 0 0; }
+.sqr-corner-bl { bottom: 4px; left: 4px;  border-width: 0 0 2.5px 2.5px; border-radius: 0 0 0 4px; }
+.sqr-corner-br { bottom: 4px; right: 4px; border-width: 0 2.5px 2.5px 0; border-radius: 0 0 4px 0; }
+
+.sqr-qr-img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  image-rendering: pixelated;
+}
+
+/* Overlay de expiração */
+.sqr-expiry-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.sqr-expiry-num {
+  font-size: 36px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1;
+}
+
+.sqr-expiry-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ── Barra de progresso ─────────────────────────────────── */
+.sqr-progress-bar {
+  width: 220px;
+  height: 3px;
+  background: var(--color-border-tertiary);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.sqr-progress-fill {
+  height: 100%;
+  background: #0EA5A4;
+  border-radius: 99px;
+  transition: width 1s linear;
+}
+
+.sqr-timer-text {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Instruções ─────────────────────────────────────────── */
+.sqr-instructions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sqr-instruction-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+.sqr-instruction-num {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0EA5A4;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+/* ── Sucesso ─────────────────────────────────────────────── */
+.sqr-success-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #0EA5A4;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sqr-success-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.sqr-success-phone {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.sqr-success-sub {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 260px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ── Erro / Offline ──────────────────────────────────────── */
+.sqr-offline-icon,
+.sqr-error-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-background-danger);
+  color: var(--color-text-danger);
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sqr-offline-icon {
+  background: var(--color-background-warning);
+  color: var(--color-text-warning);
+  font-size: 22px;
+}
+
+.sqr-error-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.sqr-error-msg {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.sqr-code-block {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 6px;
+  padding: 8px 14px;
+  max-width: 320px;
+  width: 100%;
+}
+
+.sqr-code-block code {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: var(--color-text-primary);
+  word-break: break-all;
+}
+
+/* ── Botões ──────────────────────────────────────────────── */
+.sqr-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.sqr-btn {
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 0.5px solid var(--color-border-secondary);
+  transition: background 0.15s;
+}
+
+.sqr-btn-primary {
+  background: #0EA5A4;
+  color: #fff;
+  border-color: #0EA5A4;
+}
+
+.sqr-btn-primary:hover {
+  background: #0B8483;
+  border-color: #0B8483;
+}
+
+.sqr-btn-secondary {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.sqr-btn-secondary:hover {
+  background: var(--color-background-secondary);
+}

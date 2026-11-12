@@ -1,0 +1,150 @@
+/*
+ * modal-contrast-fix.css
+ *
+ * Corrige modais invisíveis: QRCodeManager e TemplateSender usam
+ * var(--color-background-primary) que resolve para a mesma cor do
+ * fundo da página. Este patch alinha ao mesmo sistema de variáveis
+ * do SettingsModal: var(--bg-secondary) + borda + sombra forte.
+ *
+ * COMO USAR:
+ *   Importe no App.js ou index.js:
+ *   import './styles/modal-contrast-fix.css';
+ *
+ *   OU adicione o conteúdo ao final de cada CSS individual.
+ */
+
+/* ══════════════════════════════════════════════════════════
+   QRCodeManager
+══════════════════════════════════════════════════════════ */
+
+.qrm-modal {
+  background:  var(--bg-secondary, #1f2c34) !important;
+  border:      1px solid var(--border-color, #2a3942) !important;
+  box-shadow:  0 24px 64px rgba(0, 0, 0, 0.55) !important;
+}
+
+.qrm-header {
+  background:  var(--bg-secondary, #1f2c34) !important;
+  border-bottom: 1px solid var(--border-color, #2a3942) !important;
+}
+
+.qrm-body {
+  background: var(--bg-primary, #111b21) !important;
+}
+
+.qrm-form {
+  background: var(--bg-secondary, #1f2c34) !important;
+  border:     1px solid var(--border-color, #2a3942) !important;
+}
+
+.qrm-field textarea,
+.qrm-field select {
+  background: var(--bg-primary, #111b21) !important;
+  border:     1px solid var(--border-color, #2a3942) !important;
+  color:      var(--text-primary, #e9edef) !important;
+}
+
+.qrm-field textarea:focus,
+.qrm-field select:focus {
+  border-color: var(--whatsapp-green, #25D366) !important;
+}
+
+/* Card individual da lista de QR codes */
+.qrm-card {
+  background: var(--bg-secondary, #1f2c34) !important;
+  border:     1px solid var(--border-color, #2a3942) !important;
+}
+
+.qrm-card:hover {
+  border-color: rgba(37, 211, 102, 0.4) !important;
+}
+
+/* Info box */
+.qrm-info-box {
+  background:   rgba(52, 183, 241, 0.09) !important;
+  border-bottom: 1px solid var(--border-color, #2a3942) !important;
+  color:         var(--text-secondary, #8696a0) !important;
+}
+
+/* Overlay — escurecer mais o fundo para o modal contrastar */
+.qrm-overlay {
+  background: rgba(0, 0, 0, 0.65) !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TemplateSender
+══════════════════════════════════════════════════════════ */
+
+.ts-modal {
+  background:  var(--bg-secondary, #1f2c34) !important;
+  border:      1px solid var(--border-color, #2a3942) !important;
+  box-shadow:  0 24px 64px rgba(0, 0, 0, 0.55) !important;
+}
+
+.ts-header {
+  background:    var(--bg-secondary, #1f2c34) !important;
+  border-bottom: 1px solid var(--border-color, #2a3942) !important;
+}
+
+/* Coluna da lista de templates */
+.ts-col-list {
+  background:   var(--bg-secondary, #1f2c34) !important;
+  border-right: 1px solid var(--border-color, #2a3942) !important;
+}
+
+/* Coluna do formulário */
+.ts-col-form {
+  background: var(--bg-primary, #111b21) !important;
+}
+
+/* Campos de busca e filtro */
+.ts-search-wrap,
+.ts-filter-wrap {
+  background: var(--bg-primary, #111b21) !important;
+  border:     1px solid var(--border-color, #2a3942) !important;
+}
+
+.ts-search-wrap input,
+.ts-filter-wrap select {
+  color: var(--text-primary, #e9edef) !important;
+}
+
+/* Cards de template na lista */
+.ts-card {
+  border: 1px solid var(--border-color, #2a3942) !important;
+}
+
+.ts-card:hover {
+  background:   var(--bg-primary, #111b21) !important;
+  border-color: rgba(37, 211, 102, 0.4) !important;
+}
+
+.ts-card.selected {
+  background:   rgba(37, 211, 102, 0.08) !important;
+  border-color: var(--whatsapp-green, #25D366) !important;
+}
+
+/* Campos do formulário */
+.ts-field input,
+.ts-field select {
+  background: var(--bg-secondary, #1f2c34) !important;
+  border:     1px solid var(--border-color, #2a3942) !important;
+  color:      var(--text-primary, #e9edef) !important;
+}
+
+.ts-field input:focus,
+.ts-field select:focus {
+  border-color: var(--whatsapp-green, #25D366) !important;
+}
+
+/* Overlay */
+.ts-overlay {
+  background: rgba(0, 0, 0, 0.65) !important;
+}
+
+/* Info box */
+.ts-info-box {
+  background: rgba(52, 183, 241, 0.09) !important;
+  border:     1px solid rgba(52, 183, 241, 0.25) !important;
+  color:      var(--text-secondary, #8696a0) !important;
+}

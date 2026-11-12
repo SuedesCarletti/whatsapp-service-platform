@@ -1,0 +1,398 @@
+/* ════════════════════════════════════════════════════════
+   SettingsModal.css
+   ════════════════════════════════════════════════════════ */
+
+.sm-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.65);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  animation: smFadeIn .15s ease;
+}
+@keyframes smFadeIn { from{opacity:0} to{opacity:1} }
+
+.sm-modal {
+  background: var(--bg-primary, #111b21);
+  border: 1px solid var(--border-color, #2a3942);
+  border-radius: 16px;
+  width: 920px; max-width: 96vw;
+  height: 640px; max-height: 94vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 28px 72px rgba(0,0,0,.55);
+  animation: smSlideUp .2s ease;
+}
+@keyframes smSlideUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── Header ── */
+.sm-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color, #2a3942);
+  background: var(--bg-secondary, #1f2c34);
+  flex-shrink: 0;
+}
+.sm-header-left { display:flex; align-items:center; gap:9px; font-size:15px; font-weight:600; color:var(--text-primary,#e9edef); }
+.sm-header-right { display:flex; align-items:center; gap:10px; }
+.sm-flash { display:flex; align-items:center; gap:5px; font-size:12px; padding:4px 10px; border-radius:20px; }
+.sm-flash.ok  { background:rgba(14, 165, 164,.15); color:#0EA5A4; }
+.sm-flash.err { background:rgba(244,67,54,.15);  color:#F44336; }
+.sm-icon-btn  { background:none; border:none; color:var(--text-secondary,#8696a0); cursor:pointer; padding:6px; border-radius:8px; display:flex; align-items:center; transition:background .2s,color .2s; }
+.sm-icon-btn:hover { background:var(--bg-tertiary,#2a3942); color:var(--text-primary,#e9edef); }
+
+/* ── Body ── */
+.sm-body { display:flex; flex:1; overflow:hidden; }
+
+/* ── Sidebar ── */
+.sm-sidebar {
+  width:196px; min-width:196px;
+  background:var(--bg-secondary,#1f2c34);
+  border-right:1px solid var(--border-color,#2a3942);
+  display:flex; flex-direction:column;
+  padding:10px 0; gap:2px;
+  overflow-y:auto;
+}
+.sm-user-badge { display:flex; align-items:center; gap:9px; padding:10px 14px 14px; border-bottom:1px solid var(--border-color,#2a3942); margin-bottom:6px; }
+.sm-avatar { width:34px; height:34px; border-radius:50%; background:var(--whatsapp-green,#0EA5A4); color:#fff; font-weight:700; font-size:15px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.sm-username { font-size:13px; font-weight:600; color:var(--text-primary,#e9edef); }
+.sm-userrole { font-size:11px; color:var(--text-secondary,#8696a0); margin-top:1px; }
+
+.sm-tabs { display:flex; flex-direction:column; gap:2px; padding:0 8px; flex:1; }
+.sm-tab { display:flex; align-items:center; gap:9px; padding:9px 11px; border:none; background:none; color:var(--text-secondary,#8696a0); font-size:13px; cursor:pointer; border-radius:9px; transition:all .15s; text-align:left; width:100%; }
+.sm-tab:hover  { background:var(--bg-tertiary,#2a3942); color:var(--text-primary,#e9edef); }
+.sm-tab.active { background:var(--brand-orange-14); color:var(--brand-orange); font-weight:700; }
+
+.sm-active-provider { padding:10px 14px; border-top:1px solid var(--border-color,#2a3942); margin-top:auto; }
+.sm-ap-label { font-size:10px; text-transform:uppercase; color:var(--text-secondary,#8696a0); letter-spacing:.7px; }
+.sm-ap-badge { display:flex; align-items:center; gap:6px; margin-top:6px; padding:6px 8px; border:1px solid; border-radius:8px; font-size:12px; color:var(--text-primary,#e9edef); }
+
+/* ── Content ── */
+.sm-content { flex:1; overflow-y:auto; padding:22px; }
+.sm-pane { display:flex; flex-direction:column; gap:18px; }
+.sm-pane-flush { padding:0 !important; overflow:hidden; }
+
+.sm-title { font-size:17px; font-weight:700; color:var(--text-primary,#e9edef); margin:0; padding-bottom:12px; border-bottom:1px solid var(--border-color,#2a3942); }
+
+/* ── Section ── */
+.sm-section { background:var(--bg-secondary,#1f2c34); border:1px solid var(--border-color,#2a3942); border-radius:12px; padding:15px; }
+.sm-section h3 { font-size:12px; font-weight:600; color:var(--text-secondary,#8696a0); text-transform:uppercase; letter-spacing:.6px; margin:0 0 13px; }
+.sm-section small { font-size:11px; color:var(--text-secondary,#8696a0); }
+.sm-section-hr { display:flex; align-items:center; justify-content:space-between; margin-bottom:13px; }
+.sm-section-hr h3 { margin:0; }
+
+/* ── Row ── */
+.sm-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.sm-row-info { display:flex; flex-direction:column; gap:3px; }
+.sm-row-info span { font-size:13px; color:var(--text-primary,#e9edef); }
+.sm-row-info small { font-size:11px; color:var(--text-secondary,#8696a0); }
+
+/* ── Controls ── */
+.sm-select { background:var(--bg-tertiary,#2a3942); border:1px solid var(--border-color,#3a4f5c); border-radius:8px; color:var(--text-primary,#e9edef); padding:7px 11px; font-size:13px; cursor:pointer; }
+.sm-pill { display:flex; align-items:center; gap:5px; padding:7px 13px; border:none; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; transition:all .2s; white-space:nowrap; }
+.sm-pill.on   { background:rgba(14, 165, 164,.18); color:#0EA5A4; border:1px solid rgba(14, 165, 164,.35); }
+.sm-pill.off  { background:var(--bg-tertiary,#2a3942); color:var(--text-secondary,#8696a0); border:1px solid var(--border-color,#2a3942); }
+.sm-pill.small { padding:4px 10px; font-size:11px; }
+.sm-toggle-btn { display:flex; align-items:center; gap:6px; padding:7px 13px; border:1px solid var(--border-color,#2a3942); border-radius:8px; background:var(--bg-tertiary,#2a3942); color:var(--text-primary,#e9edef); cursor:pointer; font-size:13px; transition:background .2s; }
+.sm-toggle-btn:hover { background:var(--bg-primary,#111b21); }
+
+/* ── Field ── */
+.sm-field { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; }
+.sm-field label { font-size:11px; font-weight:600; color:var(--text-secondary,#8696a0); text-transform:uppercase; letter-spacing:.5px; }
+.sm-field input,.sm-field textarea,.sm-field select { background:var(--bg-tertiary,#2a3942); border:1px solid var(--border-color,#3a4f5c); border-radius:8px; color:var(--text-primary,#e9edef); padding:8px 11px; font-size:13px; resize:vertical; transition:border-color .2s; }
+.sm-field input:focus,.sm-field textarea:focus { outline:none; border-color:var(--whatsapp-green,#0EA5A4); }
+.sm-field small { font-size:11px; color:var(--text-secondary,#8696a0); text-align:right; }
+.sm-input-wrap { position:relative; }
+.sm-input-wrap input { width:100%; padding-right:38px; box-sizing:border-box; }
+.sm-eye { position:absolute; right:9px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--text-secondary,#8696a0); cursor:pointer; display:flex; align-items:center; }
+.sm-eye:hover { color:var(--text-primary,#e9edef); }
+
+/* ── Buttons ── */
+.sm-save-btn { display:flex; align-items:center; gap:7px; padding:9px 18px; background:var(--whatsapp-green,#0EA5A4); color:#fff; border:none; border-radius:9px; font-size:13px; font-weight:600; cursor:pointer; transition:background .2s; }
+.sm-save-btn:hover { background:#0B8483; }
+.sm-save-btn:disabled { opacity:.6; cursor:not-allowed; }
+.sm-save-btn.small { padding:6px 12px; font-size:12px; }
+
+.sm-add-btn { display:flex; align-items:center; gap:6px; padding:7px 13px; background:rgba(14, 165, 164,.12); color:#0EA5A4; border:1px solid rgba(14, 165, 164,.3); border-radius:8px; font-size:12px; font-weight:600; cursor:pointer; transition:background .2s; }
+.sm-add-btn:hover { background:rgba(14, 165, 164,.22); }
+
+.sm-help-btn { display:flex; align-items:center; gap:6px; padding:7px 13px; background:rgba(52,183,241,.1); color:#34B7F1; border:1px solid rgba(52,183,241,.3); border-radius:8px; font-size:12px; font-weight:600; cursor:pointer; transition:background .2s; }
+.sm-help-btn:hover { background:rgba(52,183,241,.2); }
+
+.sm-test-btn { display:flex; align-items:center; gap:7px; padding:9px 16px; background:none; color:var(--text-primary,#e9edef); border:1px solid var(--border-color,#2a3942); border-radius:9px; font-size:13px; cursor:pointer; transition:all .2s; }
+.sm-test-btn:hover { border-color:var(--whatsapp-green,#0EA5A4); color:var(--whatsapp-green,#0EA5A4); }
+
+.sm-del-btn { background:none; border:none; color:#F44336; cursor:pointer; padding:5px; border-radius:6px; display:flex; align-items:center; transition:background .2s; }
+.sm-del-btn:hover { background:rgba(244,67,54,.1); }
+
+.sm-btn-row { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+
+.sm-info-box { display:flex; align-items:flex-start; gap:9px; padding:11px 13px; background:rgba(52,183,241,.09); border:1px solid rgba(52,183,241,.28); border-radius:9px; font-size:12px; color:#34B7F1; line-height:1.5; }
+.sm-info-box svg { flex-shrink:0; margin-top:1px; }
+
+.sm-steps { padding-left:18px; font-size:12px; color:var(--text-secondary,#8696a0); line-height:1.85; margin:0; }
+.sm-steps a { color:var(--whatsapp-green,#0EA5A4); }
+
+.sm-loading { color:var(--text-secondary,#8696a0); font-size:13px; }
+.sm-empty { display:flex; flex-direction:column; align-items:center; gap:12px; padding:30px 0; color:var(--text-secondary,#8696a0); text-align:center; }
+.sm-empty svg { opacity:.4; }
+
+.spin { animation:spinAnim .7s linear infinite; }
+@keyframes spinAnim { to{transform:rotate(360deg)} }
+
+/* ── Contas ── */
+.sm-acc-list { display:flex; flex-direction:column; gap:8px; }
+.sm-acc-card { display:flex; align-items:center; gap:12px; padding:11px 13px; background:var(--bg-primary,#111b21); border:1px solid var(--border-color,#2a3942); border-radius:10px; transition:border-color .2s; }
+.sm-acc-card.inactive { opacity:.5; }
+.sm-acc-card:hover { border-color:var(--whatsapp-green,#0EA5A4); }
+.sm-acc-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.sm-acc-info { flex:1; display:flex; flex-direction:column; gap:3px; }
+.sm-acc-info strong { font-size:13px; color:var(--text-primary,#e9edef); }
+.sm-acc-info span   { font-size:11px; color:var(--text-secondary,#8696a0); display:flex; align-items:center; gap:3px; }
+.sm-acc-badges { display:flex; gap:6px; flex-wrap:wrap; margin-top:3px; }
+.sm-provider-chip { font-size:10px; padding:2px 7px; border:1px solid; border-radius:10px; color:var(--text-secondary,#8696a0); }
+.sm-status-chip   { font-size:10px; font-weight:600; }
+.sm-acc-actions { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.sm-qr-hint { color:#ECB22E; cursor:help; display:flex; align-items:center; }
+
+/* ── Usuários ── */
+.sm-subtabs { display:flex; gap:6px; margin-bottom:14px; }
+.sm-subtab { display:flex; align-items:center; gap:6px; padding:7px 14px; border:1px solid var(--border-color,#2a3942); border-radius:8px; background:none; color:var(--text-secondary,#8696a0); font-size:12px; cursor:pointer; transition:all .2s; }
+.sm-subtab.active { background:var(--bg-secondary,#1f2c34); color:var(--text-primary,#e9edef); border-color:var(--whatsapp-green,#0EA5A4); }
+.sm-subtab:hover  { color:var(--text-primary,#e9edef); }
+
+.sm-user-list { display:flex; flex-direction:column; gap:7px; }
+.sm-user-row  { display:flex; align-items:center; gap:10px; padding:9px 11px; background:var(--bg-primary,#111b21); border:1px solid var(--border-color,#2a3942); border-radius:9px; }
+.sm-user-av   { width:32px; height:32px; border-radius:50%; background:var(--whatsapp-green,#0EA5A4); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:13px; }
+.sm-user-det  { flex:1; display:flex; flex-direction:column; gap:2px; }
+.sm-user-det strong { font-size:13px; color:var(--text-primary,#e9edef); }
+.sm-user-det span   { font-size:11px; color:var(--text-secondary,#8696a0); }
+
+.sm-matrix-hint { font-size:12px; color:var(--text-secondary,#8696a0); margin:0 0 14px; line-height:1.5; }
+.sm-table-wrap  { overflow-x:auto; }
+.sm-perm-table  { width:100%; border-collapse:collapse; font-size:12px; }
+.sm-perm-table th { padding:8px 10px; text-align:center; font-size:11px; font-weight:600; border-bottom:2px solid var(--border-color,#2a3942); white-space:nowrap; }
+.sm-perm-table th:first-child { text-align:left; }
+.sm-perm-table td { padding:6px 10px; border-bottom:1px solid var(--border-color,#2a3942); color:var(--text-primary,#e9edef); text-align:center; }
+.sm-perm-table td:first-child { text-align:left; font-size:12px; white-space:nowrap; }
+.sm-group-row td { background:var(--bg-tertiary,#2a3942); font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--text-secondary,#8696a0); font-weight:600; padding:5px 10px; text-align:left; }
+.sm-perm-btn { background:none; border:none; cursor:pointer; font-size:14px; padding:2px 6px; border-radius:5px; transition:background .15s; }
+.sm-perm-btn:hover { background:var(--bg-tertiary,#2a3942); }
+
+/* ── Automações ── */
+.sm-future { border-style:dashed; opacity:.8; }
+.sm-future h3 { margin-bottom:10px !important; }
+.sm-future-tags { display:flex; flex-wrap:wrap; gap:7px; }
+.sm-future-tags span { font-size:12px; padding:4px 10px; background:var(--bg-tertiary,#2a3942); border-radius:20px; color:var(--text-secondary,#8696a0); }
+
+/* ═══════════════════════════════════════════════════════════
+   EMBEDDING — Componentes existentes renderizados dentro do
+   SettingsModal. O CSS abaixo sobrescreve os overlays e modais
+   desses componentes para que se comportem como painéis inline.
+   Nenhum arquivo de componente foi modificado para isso.
+═══════════════════════════════════════════════════════════ */
+
+.settings-embedded-component {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Analytics Dashboard embedded ── */
+.settings-embedded-component .analytics-overlay {
+  position: static !important;
+  background: transparent !important;
+  display: block !important;
+  animation: none !important;
+}
+.settings-embedded-component .analytics-modal {
+  width: 100% !important; max-width: 100% !important;
+  max-height: none !important; height: 100% !important;
+  box-shadow: none !important; border-radius: 0 !important;
+  border: none !important; animation: none !important;
+  background: var(--bg-primary, #111b21) !important;
+}
+.settings-embedded-component .analytics-close { display: none !important; }
+.settings-embedded-component .analytics-body  { max-height: 450px; overflow-y: auto; }
+
+/* ── BusinessProfile embedded ── */
+.settings-embedded-component .business-profile-overlay {
+  position: static !important;
+  background: transparent !important;
+  display: block !important;
+  animation: none !important;
+}
+.settings-embedded-component .business-profile-modal {
+  width: 100% !important; max-width: 100% !important;
+  max-height: none !important; height: 100% !important;
+  box-shadow: none !important; border-radius: 0 !important;
+  border: none !important; animation: none !important;
+  background: var(--bg-primary, #111b21) !important;
+}
+.settings-embedded-component .business-profile-btn-cancel { display: none !important; }
+.settings-embedded-component .business-profile-body       { max-height: 450px; overflow-y: auto; }
+
+/* ── ProviderOnboarding embedded ── */
+.settings-embedded-onboarding .onboarding-container {
+  width: 100% !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  max-height: 480px;
+  overflow-y: auto;
+}
+/* Botão cancelar adicionado ao componente */
+.onboarding-cancel-btn {
+  background: none;
+  border: none;
+  color: var(--whatsapp-green, #0EA5A4);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0;
+  display: block;
+  margin-top: 8px;
+}
+.onboarding-cancel-btn:hover { text-decoration: underline; }
+
+/* form-actions — novo wrapper para botões do step 2/3 */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── ProviderSelectorComplete embedded ── */
+.settings-embedded-selector .provider-wizard {
+  width: 100% !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-height: 480px;
+  overflow-y: auto;
+}
+.settings-embedded-selector .provider-wizard h1 {
+  font-size: 16px !important;
+  margin-bottom: 14px !important;
+}
+/* Botões de ação do quiz */
+.quiz-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.btn-cancel-quiz {
+  background: none;
+  border: none;
+  color: var(--whatsapp-green, #0EA5A4);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0;
+}
+.btn-cancel-quiz:hover { text-decoration: underline; }
+.result-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.btn-restart {
+  background: var(--bg-tertiary, #2a3942);
+  border: 1px solid var(--border-color, #2a3942);
+  color: var(--text-secondary, #8696a0);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-restart:hover { background: var(--bg-primary, #111b21); color: var(--text-primary, #e9edef); }
+
+/* Opção selecionada no quiz */
+.options button.selected {
+  border-color: var(--whatsapp-green, #0EA5A4) !important;
+  color: var(--whatsapp-green, #0EA5A4) !important;
+  background: rgba(14, 165, 164, .1) !important;
+}
+
+/* ============================================================
+   Adições ao SettingsModal.css
+   Adicione estas regras ao final do arquivo existente.
+   ============================================================ */
+
+/* ── Botão "Autenticar via QR" nos cards de conta ─────────── */
+.sm-pill.sm-pill-qr {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: none;
+  background: rgba(236, 178, 30, 0.15);
+  color: #ECB22E;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.sm-pill.sm-pill-qr:hover {
+  background: rgba(236, 178, 30, 0.28);
+}
+
+/* ── Botão "Desconectar" ─────────────────────────────────── */
+.sm-pill.sm-pill-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: none;
+  background: rgba(244, 67, 54, 0.12);
+  color: #F44336;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sm-pill.sm-pill-danger:hover {
+  background: rgba(244, 67, 54, 0.22);
+}
+
+/* ── Painel do SessionQRCode (substitui o overlay absoluto) ── */
+.sm-session-qr-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px 0;
+  animation: sm-fade-in 0.2s ease;
+}
+
+@keyframes sm-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Botão voltar ────────────────────────────────────────── */
+.sm-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0;
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.sm-back-btn:hover {
+  color: var(--color-text-primary);
+}

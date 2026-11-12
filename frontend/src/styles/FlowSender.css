@@ -1,0 +1,420 @@
+/* ============================================
+   FlowSender Component Styles
+   ============================================ */
+
+.flow-sender-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.flow-sender-modal {
+  background-color: var(--bg-primary);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.flow-sender-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.flow-sender-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+}
+
+.flow-sender-title h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.flow-sender-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.flow-sender-close:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Body */
+.flow-sender-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Recipient */
+.flow-sender-recipient {
+  background-color: var(--bg-secondary);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flow-sender-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.flow-sender-contact {
+  font-size: 15px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Fields */
+.flow-sender-field {
+  margin-bottom: 20px;
+}
+
+.flow-sender-field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.flow-sender-help {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-left: 5px;
+}
+
+.flow-sender-optional {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.flow-sender-field input,
+.flow-sender-field select,
+.flow-sender-field textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.flow-sender-field input:focus,
+.flow-sender-field select:focus,
+.flow-sender-field textarea:focus {
+  outline: none;
+  border-color: var(--whatsapp-green);
+  background-color: var(--bg-tertiary);
+}
+
+.flow-sender-field textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.flow-sender-field textarea.invalid {
+  border-color: #ff4444;
+}
+
+.flow-sender-field small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.flow-sender-field small.error-text {
+  color: #ff4444;
+}
+
+.flow-sender-id-row {
+  display: flex;
+  gap: 8px;
+}
+
+.flow-sender-id-row input {
+  flex: 1;
+}
+
+.flow-sender-fetch-btn {
+  width: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.flow-sender-fetch-btn:hover:not(:disabled) {
+  color: var(--text-primary);
+  border-color: var(--whatsapp-green);
+}
+
+.flow-sender-fetch-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.flow-sender-spin {
+  animation: flow-sender-spin 1s linear infinite;
+}
+
+@keyframes flow-sender-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.flow-sender-var-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.flow-sender-dynamic-field {
+  margin-bottom: 12px;
+}
+
+.flow-sender-dynamic-field label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.flow-sender-field-name {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--text-tertiary);
+  margin-left: 6px;
+}
+
+.flow-sender-dynamic-field input {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+/* Example Buttons */
+.flow-sender-examples {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.flow-sender-example-btn {
+  padding: 6px 12px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.flow-sender-example-btn:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--whatsapp-green);
+}
+
+/* Error/Success Messages */
+.flow-sender-error,
+.flow-sender-success {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.flow-sender-error {
+  background-color: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  border: 1px solid rgba(255, 68, 68, 0.3);
+}
+
+.flow-sender-success {
+  background-color: rgba(37, 211, 102, 0.1);
+  color: var(--whatsapp-green);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+}
+
+/* Footer */
+.flow-sender-footer {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.flow-sender-btn-cancel,
+.flow-sender-btn-send {
+  flex: 1;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.flow-sender-btn-cancel {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.flow-sender-btn-cancel:hover:not(:disabled) {
+  background-color: var(--bg-tertiary);
+}
+
+.flow-sender-btn-send {
+  background-color: var(--whatsapp-green);
+  border: none;
+  color: white;
+}
+
+.flow-sender-btn-send:hover:not(:disabled) {
+  background-color: var(--whatsapp-green-dark);
+}
+
+.flow-sender-btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.flow-sender-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Instructions */
+.flow-sender-instructions {
+  padding: 16px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.flow-sender-instructions strong {
+  display: block;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.flow-sender-instructions ol {
+  margin: 8px 0 0 20px;
+  padding: 0;
+}
+
+.flow-sender-instructions li {
+  margin-bottom: 4px;
+}
+
+.flow-sender-instructions a {
+  color: var(--whatsapp-green);
+  text-decoration: none;
+}
+
+.flow-sender-instructions a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .flow-sender-modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .flow-sender-header,
+  .flow-sender-body,
+  .flow-sender-footer {
+    padding: 16px;
+  }
+
+  .flow-sender-footer {
+    flex-direction: column;
+  }
+
+  .flow-sender-btn-cancel,
+  .flow-sender-btn-send {
+    width: 100%;
+  }
+}

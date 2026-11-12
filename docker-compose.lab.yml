@@ -1,0 +1,71 @@
+# Ambiente de teste local do wpp-sdk-py (portas escolhidas p/ no colidir com
+# o n8n do agente-conteudo, que usa 5678/5432/6379/8765/11434).
+name: wpp-lab
+services:
+  mysql:
+    restart: unless-stopped
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME:-whatsapp_chat}
+      MYSQL_USER: ${DB_USER:-wpp_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    restart: unless-stopped
+    build: .
+    env_file: .env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      APP_PORT: "8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  baileys-bridge:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: lab/baileys.Dockerfile
+    env_file: .env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      FASTAPI_URL: http://app:8000
+      FASTAPI_INTERNAL_URL: http://app:8000
+      BAILEYS_PORT: "3001"
+      PORT: "3001"
+      BACKUP_DIR: /data/backup
+    volumes:
+      - baileys_backup:/data/backup
+    ports:
+      - "3001:3001"
+    depends_on:
+      - app
+
+  # Tnel pblico temporrio (Cloudflare quick tunnel, sem conta). S expe o
+  # app:8000  MySQL e bridge continuam internos. A URL muda a cada start:
+  #   docker compose -f docker-compose.lab.yml --profile tunnel up -d tunnel
+  #   docker compose -f docker-compose.lab.yml logs tunnel | grep trycloudflare
+  tunnel:
+    restart: unless-stopped
+    image: cloudflare/cloudflared:latest
+    profiles: ["tunnel"]
+    command: tunnel --no-autoupdate --url http://app:8000
+    depends_on:
+      - app
+
+volumes:
+  mysql_data:
+  baileys_backup:

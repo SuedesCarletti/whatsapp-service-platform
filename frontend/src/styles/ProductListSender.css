@@ -1,0 +1,118 @@
+/* ProductListSender.css — seções + produtos (reaproveita .product-sender-* de ProductSender.css) */
+
+.pls-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pls-sections-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pls-sections-header label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.pls-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pls-btn-ghost:hover {
+  background: var(--bg-hover);
+}
+
+.pls-btn-sm {
+  padding: 4px 10px;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.pls-section-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.pls-section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pls-section-title-row input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pls-product-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+}
+
+.pls-product-tag {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 30px;
+}
+
+.pls-product-row input {
+  flex: 1;
+  padding: 6px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+}
+
+.pls-icon-btn {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pls-icon-btn:hover {
+  background: var(--bg-hover);
+}
+
+.pls-icon-btn-danger:hover {
+  color: #F44336;
+  background: rgba(244, 67, 54, 0.12);
+}

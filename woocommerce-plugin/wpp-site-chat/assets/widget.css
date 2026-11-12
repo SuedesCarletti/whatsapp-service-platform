@@ -1,0 +1,34 @@
+.wppchat-root{--wpp-color:#1E293B;position:fixed;bottom:20px;z-index:999999;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:14px;line-height:1.4;color:#1a1a1a}
+.wppchat-root.wpp-right{right:20px}.wppchat-root.wpp-left{left:20px}
+.wppchat-root *{box-sizing:border-box}
+.wppchat-fab{width:56px;height:56px;border-radius:50%;border:0;background:var(--wpp-color);color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;position:relative;padding:0}
+.wppchat-fab svg{width:26px;height:26px;fill:#fff}
+.wppchat-badge{position:absolute;top:-2px;right:-2px;min-width:20px;height:20px;border-radius:10px;background:#F47B20;color:#fff;font-size:12px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 5px}
+.wppchat-panel{display:none;flex-direction:column;width:360px;max-width:calc(100vw - 24px);height:520px;max-height:calc(100vh - 100px);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.25);overflow:hidden;margin-bottom:12px}
+.wppchat-root.wpp-open .wppchat-panel{display:flex}
+.wppchat-head{background:var(--wpp-color);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.wppchat-head b{font-size:15px}
+.wppchat-x{background:none;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1;padding:0 4px}
+.wppchat-msgs{flex:1;overflow-y:auto;padding:14px;background:#f4f6f8;display:flex;flex-direction:column;gap:8px}
+.wppchat-m{max-width:80%;padding:8px 12px;border-radius:12px;word-wrap:break-word;white-space:pre-wrap}
+.wppchat-m.visitor{align-self:flex-end;background:var(--wpp-color);color:#fff;border-bottom-right-radius:4px}
+.wppchat-m.agent{align-self:flex-start;background:#fff;border:1px solid #e1e5ea;border-bottom-left-radius:4px}
+.wppchat-m a{color:inherit;text-decoration:underline}
+.wppchat-who{font-size:11px;font-weight:600;opacity:.65;margin-bottom:2px}
+.wppchat-hello{align-self:center;color:#5c6670;text-align:center;font-size:13px;padding:6px 10px}
+.wppchat-foot{border-top:1px solid #e1e5ea;padding:10px;display:flex;gap:8px;background:#fff}
+.wppchat-foot textarea{flex:1;resize:none;border:1px solid #cfd6dd;border-radius:10px;padding:8px 10px;font:inherit;max-height:90px;outline:none}
+.wppchat-foot textarea:focus,.wppchat-form input:focus{border-color:var(--wpp-color)}
+.wppchat-send{border:0;border-radius:10px;background:#F47B20;color:#fff;font-weight:600;padding:0 14px;cursor:pointer}
+.wppchat-send:disabled{opacity:.5;cursor:default}
+.wppchat-form{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1;background:#f4f6f8}
+.wppchat-form p{margin:0 0 4px;color:#3b444d}
+.wppchat-form input{border:1px solid #cfd6dd;border-radius:10px;padding:9px 11px;font:inherit;outline:none;width:100%}
+.wppchat-form button{border:0;border-radius:10px;background:#F47B20;color:#fff;font-weight:600;padding:10px;cursor:pointer;font-size:14px}
+.wppchat-err{color:#b3261e;font-size:12px;padding:0 14px 6px;background:#fff}
+.wppchat-ctx{background:#fff7f0;border-bottom:1px solid #fbd9cc;padding:8px 14px;font-size:12.5px;color:#3b444d}
+.wppchat-ctx-label{opacity:.7;margin-right:4px}
+.wppchat-ctx a{color:var(--wpp-color);font-weight:600;text-decoration:underline}
+@media (max-width:480px){.wppchat-root.wpp-open{inset:0;bottom:0;right:0;left:0}.wppchat-root.wpp-open .wppchat-panel{width:100vw;max-width:none;height:100vh;max-height:none;border-radius:0;margin:0}.wppchat-root.wpp-open .wppchat-fab{display:none}}
+.wppchat-ttl{display:flex;flex-direction:column;line-height:1.2}
+.wppchat-proto{font-size:11px;opacity:.75}

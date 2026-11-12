@@ -1,0 +1,192 @@
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================
+# Ambientes Virtuais
+# ============================================
+env/
+venv/
+ENV/
+.venv
+virtualenv/
+
+# ============================================
+# IDEs
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ============================================
+# Arquivos Sensíveis
+# ============================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+
+# ============================================
+# Banco de Dados
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ============================================
+# Uploads e Mídia
+# ============================================
+uploads/*
+!uploads/.gitkeep
+media/
+
+# ============================================
+# Logs
+# ============================================
+*.log
+logs/
+*.log.*
+
+# ============================================
+# Testes
+# ============================================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# ============================================
+# Sistema Operacional
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================
+# Node (se houver frontend no mesmo repo)
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# Temporários
+# ============================================
+tmp/
+temp/
+*.tmp
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+frontend/src/services/baileys-bridge/sessions/
+
+# ============================================
+# Sessões de WhatsApp (bridges não-oficiais) — credencial ativa de conexão
+# real, nunca código. Mesmo padrão do baileys-bridge acima, replicado pros
+# outros bridges (cada um guarda a própria sessão numa pasta local).
+# ============================================
+frontend/src/services/wppconnect-bridge/sessions/
+frontend/src/services/wa-web-bridge/sessions/
+frontend/src/services/venom-bridge/sessions/
+.wwebjs_cache/
+
+# Fila de recuperação de webhooks que falharam mesmo após retry — pode
+# conter texto de mensagem real de cliente, nunca código.
+frontend/src/services/*/failed_webhooks.jsonl
+
+# Progresso do backfill automático de histórico — estado de runtime por
+# servidor, não código.
+frontend/src/services/*/backfill_progress.json
+
+# Fila de ciphertext pendente de cura + watermark por sessão do gap-catchup
+# — estado de runtime por servidor, não código (ver gap-catchup.js).
+frontend/src/services/*/pending_ciphertext.json
+frontend/src/services/*/session_watermark.json
+
+# ============================================
+# Backups e dados de runtime — nunca código-fonte, e podem conter dados
+# reais de cliente (backups) ou configuração específica desta instância (data/).
+# ============================================
+backups/
+data/
+
+# ============================================
+# Binários baixados manualmente no servidor (ngrok, cloudflared) — infra
+# local, não faz parte do projeto.
+# ============================================
+/ngrok
+/ngrok-v3-stable-linux-amd64.tgz
+/cloudflared-linux-amd64.deb
+*.deb
+*.tgz
+
+# ============================================
+# Scripts/dumps de debug pontuais com dado sensível (senha em texto puro,
+# dados reais de contato/grupo) — nunca deveriam ter ficado na raiz do
+# projeto pra começo de conversa.
+# ============================================
+/test_bcrypt.py
+/metadata.json
+
+
+# build do frontend (gerado no Docker/CI)
+frontend/build/

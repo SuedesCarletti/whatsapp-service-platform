@@ -1,0 +1,105 @@
+.icon-rail {
+  width: 64px;
+  flex: 0 0 64px;
+  height: 100vh;
+  background-color: var(--brand-navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+}
+
+.icon-rail-logo {
+  height: 22px;
+  width: auto;
+  margin-bottom: 14px;
+}
+
+.icon-rail-top,
+.icon-rail-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-rail-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.icon-rail-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.icon-rail-btn.active {
+  background-color: var(--brand-orange-18);
+  color: var(--brand-orange);
+  cursor: default;
+}
+
+.icon-rail-btn:disabled {
+  cursor: default;
+}
+
+/* Minha conta (foto/inicial) — mesmo tamanho de botão, mas o conteúdo é
+   sempre um círculo cheio, não um ícone contornado. */
+.icon-rail-avatar-btn {
+  padding: 0;
+  overflow: hidden;
+}
+
+.icon-rail-avatar-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.icon-rail-avatar-initial {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.icon-rail-btn-wrap {
+  position: relative;
+}
+
+.icon-rail-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: #e02e2e;
+  color: #fff;
+  border-radius: 999px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 0 0 2px var(--brand-navy);
+  pointer-events: none;
+}

@@ -1,0 +1,123 @@
+/**
+ * Styles for the AccountSwitcher component
+ */
+.account-switcher {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.account-switcher-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: background-color 0.2s;
+}
+
+.account-switcher-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+.account-switcher-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.account-switcher-name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-switcher-provider {
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.account-dot {
+  flex-shrink: 0;
+}
+
+.dot-online { color: #2FAE60; }
+.dot-pending { color: #ffbc00; }
+.dot-offline { color: #ea0038; }
+
+.account-switcher-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  right: 10px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  margin-top: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--border-light);
+}
+
+.account-option {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.account-option:hover {
+  background: var(--bg-hover);
+}
+
+.account-option.active {
+  background: var(--bg-tertiary);
+}
+
+.account-option-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.account-option-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.account-option-meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.account-option-badge {
+  font-size: 10px;
+  color: #ea0038;
+  background: rgba(234, 0, 56, 0.1);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+.account-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 4px 0;
+}

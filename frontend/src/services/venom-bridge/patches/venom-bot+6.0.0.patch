@@ -1,0 +1,114 @@
+diff --git a/node_modules/venom-bot/dist/core/client.js b/node_modules/venom-bot/dist/core/client.js
+index 21a5a8b..e92bcf9 100644
+--- a/node_modules/venom-bot/dist/core/client.js
++++ b/node_modules/venom-bot/dist/core/client.js
+@@ -83,65 +83,55 @@ class VenomClient extends events_1.EventEmitter {
+     async sendText(chatId, text, options) {
+         return this.page.evaluate((id, msg, opts) => window.WWebJS.sendTextMessage(id, msg, opts), chatId, text, options || {});
+     }
+-    /** Send image from file path or URL */
+-    async sendImage(chatId, imagePath, caption) {
+-        return this.page.evaluate((id, img, cap) => window.WWebJS.sendMediaMessage(id, {
+-            type: 'image',
+-            media: img,
+-            caption: cap,
+-        }), chatId, imagePath, caption);
+-    }
+-    /** Send image from base64 */
++    /**
++     * BUG anterior (patch manual, não upstream): todos os métodos de mídia
++     * abaixo chamavam window.WWebJS.sendMediaMessage(id, {type, media, ...})
++     * — um OBJETO como 2º argumento — mas a função injetada real
++     * (controllers/browser.js) tem assinatura posicional:
++     *   sendMediaMessage(chatId, base64Data, mimeType, filename, caption)
++     * Com isso, mimeType chegava undefined e a lib quebrava com
++     * "Cannot read properties of undefined (reading 'startsWith')" pra
++     * imagem/vídeo/áudio/documento. sendLocation tinha o mesmo problema
++     * (chamava sendMediaMessage em vez da função sendLocation, que existe
++     * separadamente com assinatura própria). Reescrito pra chamar a função
++     * injetada real com o formato certo — ver W.WWebJS.sendMediaMessage em
++     * controllers/browser.js pra conferir a assinatura.
++     */
++    /** Send media (image/video/audio/document) from base64 data + real mime type */
++    async sendMedia(chatId, base64Data, mimeType, filename, caption) {
++        return this.page.evaluate((id, b64, mime, name, cap) => window.WWebJS.sendMediaMessage(id, b64, mime, name, cap), chatId, base64Data, mimeType, filename, caption || '');
++    }
++    /** Send image from base64 data + real mime type */
++    async sendImage(chatId, base64Data, mimeType, filename, caption) {
++        return this.sendMedia(chatId, base64Data, mimeType, filename, caption);
++    }
++    /** Send image from base64 (alias, kept for compat) */
+     async sendImageFromBase64(chatId, base64, filename, caption) {
+-        return this.page.evaluate((id, b64, name, cap) => window.WWebJS.sendMediaMessage(id, {
+-            type: 'image',
+-            media: b64,
+-            filename: name,
+-            caption: cap,
+-        }), chatId, base64, filename, caption);
+-    }
+-    /** Send file from path */
+-    async sendFile(chatId, filePath, filename, caption) {
+-        return this.page.evaluate((id, file, name, cap) => window.WWebJS.sendMediaMessage(id, {
+-            type: 'document',
+-            media: file,
+-            filename: name,
+-            caption: cap,
+-        }), chatId, filePath, filename, caption);
+-    }
+-    /** Send file from base64 */
++        return this.sendMedia(chatId, base64, 'image/jpeg', filename, caption);
++    }
++    /** Send video from base64 data + real mime type (não existia nenhum método de vídeo antes) */
++    async sendVideo(chatId, base64Data, mimeType, filename, caption) {
++        return this.sendMedia(chatId, base64Data, mimeType, filename, caption);
++    }
++    /** Send file/document from base64 data + real mime type */
++    async sendFile(chatId, base64Data, mimeType, filename, caption) {
++        return this.sendMedia(chatId, base64Data, mimeType, filename, caption);
++    }
++    /** Send file from base64 (alias, kept for compat) */
+     async sendFileFromBase64(chatId, base64, filename, caption) {
+-        return this.page.evaluate((id, b64, name, cap) => window.WWebJS.sendMediaMessage(id, {
+-            type: 'document',
+-            media: b64,
+-            filename: name,
+-            caption: cap,
+-        }), chatId, base64, filename, caption);
+-    }
+-    /** Send audio/voice message */
+-    async sendVoice(chatId, audioPath) {
+-        return this.page.evaluate((id, audio) => window.WWebJS.sendMediaMessage(id, {
+-            type: 'audio',
+-            media: audio,
+-            isPtt: true,
+-        }), chatId, audioPath);
+-    }
+-    /** Send audio from base64 */
++        return this.sendMedia(chatId, base64, 'application/octet-stream', filename, caption);
++    }
++    /** Send audio/voice message from base64 data + real mime type */
++    async sendVoice(chatId, base64Data, mimeType) {
++        return this.sendMedia(chatId, base64Data, mimeType || 'audio/ogg; codecs=opus', 'audio', '');
++    }
++    /** Send audio from base64 (alias, kept for compat) */
+     async sendVoiceBase64(chatId, base64) {
+-        return this.page.evaluate((id, b64) => window.WWebJS.sendMediaMessage(id, {
+-            type: 'audio',
+-            media: b64,
+-            isPtt: true,
+-        }), chatId, base64);
++        return this.sendMedia(chatId, base64, 'audio/ogg; codecs=opus', 'audio', '');
+     }
+-    /** Send location */
++    /** Send location — chamava sendMediaMessage por engano; a função certa é sendLocation */
+     async sendLocation(chatId, lat, lng, name) {
+-        return this.page.evaluate((id, latitude, longitude, locationName) => window.WWebJS.sendMediaMessage(id, {
+-            type: 'location',
+-            lat: latitude,
+-            lng: longitude,
+-            name: locationName,
+-        }), chatId, lat, lng, name);
++        return this.page.evaluate((id, latitude, longitude, locationName) => window.WWebJS.sendLocation(id, latitude, longitude, locationName), chatId, lat, lng, name);
+     }
+     /** Send contact card */
+     async sendContactVcard(chatId, contactId, name) {

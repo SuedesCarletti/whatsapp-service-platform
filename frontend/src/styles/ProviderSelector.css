@@ -1,0 +1,188 @@
+/* frontend/src/styles/ProviderSelector.css
+   Estilos do ProviderSelectorComplete (quiz de recomendação de provider)
+   ──────────────────────────────────────────────────────────────────────
+   OBS: As regras de embedding dentro do SettingsModal estão em SettingsModal.css
+*/
+
+/* ── Container principal ── */
+.provider-wizard {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px;
+  color: var(--text-primary, #e9edef);
+}
+
+.provider-wizard h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary, #e9edef);
+}
+
+/* ── Quiz ── */
+.needs-quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.quiz-question {
+  background: var(--bg-secondary, #202c33);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.quiz-question h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-primary, #e9edef);
+}
+
+/* ── Opções ── */
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.options button {
+  padding: 8px 14px;
+  background: var(--bg-tertiary, #2a3942);
+  border: 1.5px solid var(--border-color, #2a3942);
+  border-radius: 20px;
+  color: var(--text-secondary, #8696a0);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.options button:hover {
+  border-color: var(--whatsapp-green, #25D366);
+  color: var(--whatsapp-green, #25D366);
+}
+
+.options button.selected {
+  border-color: var(--whatsapp-green, #25D366) !important;
+  color: var(--whatsapp-green, #25D366) !important;
+  background: rgba(37, 211, 102, 0.1) !important;
+}
+
+/* ── Ações do quiz ── */
+.quiz-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-recommend {
+  padding: 10px 20px;
+  background: var(--whatsapp-green, #25D366);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-recommend:hover {
+  background: var(--whatsapp-green-dark, #128C7E);
+}
+
+.btn-cancel-quiz {
+  background: none;
+  border: none;
+  color: var(--whatsapp-green, #25D366);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.btn-cancel-quiz:hover { text-decoration: underline; }
+
+/* ── Resultado ── */
+.recommendation-result {
+  background: var(--bg-secondary, #202c33);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1.5px solid var(--whatsapp-green, #25D366);
+  margin-top: 16px;
+}
+
+.recommendation-result h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--text-primary, #e9edef);
+}
+
+.provider-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.provider-details p {
+  font-size: 13px;
+  color: var(--text-secondary, #8696a0);
+  margin: 0;
+}
+
+.provider-details p strong {
+  color: var(--text-primary, #e9edef);
+}
+
+.highlight {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: rgba(37, 211, 102, 0.1);
+  border-radius: 8px;
+  color: var(--whatsapp-green, #25D366);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ── Ações do resultado ── */
+.result-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-select {
+  padding: 10px 20px;
+  background: var(--whatsapp-green, #25D366);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-select:hover { background: var(--whatsapp-green-dark, #128C7E); }
+
+.btn-restart {
+  background: var(--bg-tertiary, #2a3942);
+  border: 1px solid var(--border-color, #2a3942);
+  color: var(--text-secondary, #8696a0);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-restart:hover {
+  background: var(--bg-primary, #111b21);
+  color: var(--text-primary, #e9edef);
+}

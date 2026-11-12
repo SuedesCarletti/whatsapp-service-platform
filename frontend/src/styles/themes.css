@@ -1,0 +1,199 @@
+/* ============================================
+   SISTEMA DE TEMAS - DARK & LIGHT MODE
+   Identidade visual neutra (slate / teal)
+   ============================================ */
+
+/* ============================================
+   TOKENS DE MARCA — fixos, não variam por tema
+   (rail lateral, avatares, painel de login, badges, semânticas)
+   ============================================ */
+:root {
+  --brand-navy: #1E293B;
+  --brand-navy-2: #273449;
+  --brand-orange: #0EA5A4;
+  --brand-orange-hover: #0B8483;
+  --brand-orange-14: rgba(14, 165, 164, 0.14);
+  --brand-orange-18: rgba(14, 165, 164, 0.18);
+
+  --success-color: #2FAE60;
+  --success-text: #1E9E5A;
+  --success-bg: rgba(30, 158, 90, 0.12);
+  --danger-color: #D24B4B;
+  --danger-bg: rgba(210, 75, 75, 0.12);
+  --warning-border: #ECB22E;
+  --warning-text: #B8860B;
+  --warning-bg: rgba(236, 178, 46, 0.12);
+  --info-color: #34B7F1;
+  --info-bg: rgba(52, 183, 241, 0.12);
+
+  --avatar-bg: var(--brand-navy);
+
+  /* Alias --color-* usado por alguns componentes (Templates, QR de sessão,
+     onboarding de provider) — mesma paleta acima, nomes diferentes. Sem
+     isso esses componentes ficam sem cor de fundo/texto nenhuma. */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-background-primary: var(--bg-primary);
+  --color-background-secondary: var(--bg-secondary);
+  --color-border-secondary: var(--border-color);
+  --color-border-tertiary: var(--border-color);
+  --color-background-danger: var(--danger-bg);
+  --color-text-danger: var(--danger-color);
+  --color-background-warning: var(--warning-bg);
+  --color-text-warning: var(--warning-text);
+  --color-background-info: var(--info-bg);
+  --color-text-info: var(--info-color);
+}
+
+/* ============================================
+   DARK THEME (Padrão)
+   ============================================ */
+[data-theme="dark"] {
+  /* Marca — mantém os nomes antigos (whatsapp-*) para não quebrar os
+     componentes existentes, mas os valores agora são os tokens de marca */
+  --whatsapp-green: #0EA5A4;
+  --whatsapp-green-dark: #0B8483;
+  --whatsapp-teal: #1E293B;
+  --whatsapp-light: rgba(14, 165, 164, 0.14);
+  --whatsapp-blue: #34B7F1;
+
+  /* Cores de fundo - DARK MODE */
+  --bg-primary: #0F2338;
+  --bg-secondary: #0C1C2C;
+  --bg-tertiary: #0C1C2C;
+  --bg-chat: #081019;
+  --bg-hover: #14283C;
+  --bg-message-sent: #0EA5A4;
+  --bg-message-received: #0F2338;
+
+  /* Cores de texto - LIGHT TEXT ON DARK BG */
+  --text-primary: #EAF1F7;
+  --text-secondary: #93A6B8;
+  --text-tertiary: #5E7488;
+
+  /* Borders */
+  --border-color: #1B3A56;
+
+  /* Sombras */
+  --shadow: 0 1px 3px rgba(8, 16, 25, 0.4);
+  --shadow-light: 0 1px 2px rgba(8, 16, 25, 0.2);
+
+  /* Padrão de Fundo do Chat (Dark Mode Colors) */
+  --bg-chat-pattern: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23081019'/%3E%3Cpath d='M0 0L50 50M50 50L100 0M50 50L0 100M50 50L100 100' stroke='%230F2338' stroke-width='0.5' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+/* ============================================
+   LIGHT THEME
+   ============================================ */
+[data-theme="light"] {
+  --whatsapp-green: #0EA5A4;
+  --whatsapp-green-dark: #0B8483;
+  --whatsapp-teal: #1E293B;
+  --whatsapp-light: rgba(14, 165, 164, 0.14);
+  --whatsapp-blue: #34B7F1;
+
+  /* Cores de fundo - LIGHT MODE */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F7FA;
+  --bg-tertiary: #F1F4F7;
+  --bg-chat: #F7F9FB;
+  --bg-hover: #EAEFF4;
+  --bg-message-sent: #0EA5A4;
+  --bg-message-received: #FFFFFF;
+
+  /* Cores de texto - DARK TEXT ON LIGHT BG */
+  --text-primary: #0F1F2E;
+  --text-secondary: #5B6B7C;
+  --text-tertiary: #8B99A8;
+
+  /* Borders */
+  --border-color: #E2E7ED;
+
+  /* Sombras */
+  --shadow: 0 1px 3px rgba(30, 41, 59, 0.1);
+  --shadow-light: 0 1px 2px rgba(30, 41, 59, 0.05);
+
+  /* Padrão de Fundo do Chat (Light Mode Colors) */
+  --bg-chat-pattern: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23F7F9FB'/%3E%3Cpath d='M0 0L50 50M50 50L100 0M50 50L0 100M50 50L100 100' stroke='%23EEF2F6' stroke-width='0.5' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ============================================
+   FALLBACK para o instante antes do App.js definir data-theme no <html>
+   (só entra em jogo se nenhum data-theme estiver setado ainda — nunca deve
+   competir com [data-theme="light"]/[data-theme="dark"], senão o empate de
+   especificidade é resolvido por ordem no arquivo e ele vence o tema real)
+   ============================================ */
+:root:not([data-theme]) {
+  --whatsapp-green: #0EA5A4;
+  --whatsapp-green-dark: #0B8483;
+  --whatsapp-teal: #1E293B;
+  --whatsapp-light: rgba(14, 165, 164, 0.14);
+  --whatsapp-blue: #34B7F1;
+
+  /* Cores de fundo - DARK MODE (padrão) */
+  --bg-primary: #0F2338;
+  --bg-secondary: #0C1C2C;
+  --bg-tertiary: #0C1C2C;
+  --bg-chat: #081019;
+  --bg-hover: #14283C;
+  --bg-message-sent: #0EA5A4;
+  --bg-message-received: #0F2338;
+  --bg-chat-pattern: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23081019'/%3E%3Cpath d='M0 0L50 50M50 50L100 0M50 50L0 100M50 50L100 100' stroke='%230F2338' stroke-width='0.5' opacity='0.15'/%3E%3C/svg%3E");
+
+  --text-primary: #EAF1F7;
+  --text-secondary: #93A6B8;
+  --text-tertiary: #5E7488;
+
+  --border-color: #1B3A56;
+
+  --shadow: 0 1px 3px rgba(8, 16, 25, 0.4);
+  --shadow-light: 0 1px 2px rgba(8, 16, 25, 0.2);
+}
+
+/* ============================================
+   APLICAR TEMA NO BODY E HTML - SEM TRANSIÇÕES
+   ============================================ */
+html, body {
+  background-color: var(--bg-chat);
+  color: var(--text-primary);
+  /* ⭐ CRÍTICO: REMOVER transições do body/html para evitar flash branco */
+  transition: none !important;
+}
+
+/* ============================================
+   TRANSIÇÕES SELETIVAS - APENAS ELEMENTOS INTERATIVOS
+   ============================================ */
+/* ⭐ APENAS elementos interativos devem ter transição */
+button:not(.message):not([class*="animation"]),
+.icon-button,
+.theme-toggle-button,
+.conversation-item,
+.message-input,
+input:not([type="password"]):not([type="text"]),
+textarea,
+select {
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              transform 0.2s ease,
+              opacity 0.2s ease;
+}
+
+/* ⭐ NÃO aplicar transição em elementos estruturais */
+.app-container,
+.sidebar,
+.chat-area,
+.icon-rail,
+.messages-container,
+#root {
+  transition: none !important;
+}
+
+/* Exceções: elementos com animações próprias */
+.spinner,
+.message,
+[class*="animation"],
+[class*="slide"],
+[class*="fade"] {
+  transition: none !important;
+}
