@@ -1315,7 +1315,7 @@ deleteQRCode: async (code) => {
 
 
   /**
-   * NOVO: Endpoint de Login
+   * Endpoint de Login
    * Usando /api/auth/login
    */
   login: async (email, password) => {
@@ -1347,7 +1347,7 @@ deleteQRCode: async (code) => {
   },
 
   /**
-   * NOVO: Enviar mensagem com botões interativos
+   * Enviar mensagem com botões interativos
    * Endpoint: POST /api/send/interactive/buttons
    */
   sendInteractiveButtons: async (payload) => {
@@ -1372,7 +1372,7 @@ deleteQRCode: async (code) => {
   },
 
   /**
-   * NOVO: Enviar reação a uma mensagem
+   * Enviar reação a uma mensagem
    * @param {Object} payload - {to: string, message_id: string, emoji: string}
    */
   async sendReaction(payload) {
@@ -1468,7 +1468,7 @@ deleteQRCode: async (code) => {
 };
 
 // ── API exclusiva do provider Baileys ──────────────────────────────────────
-// Todas as funções aceitam account_id como último parâmetro opcional.
+// Todas as funções aceitam account_id como último parmetro opcional.
 // Quando omitido, o backend usa a primeira conta Baileys ativa.
 const _b = (url, body) => api.post(url, body).then(r => r.data);
 

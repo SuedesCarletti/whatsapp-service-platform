@@ -190,13 +190,13 @@ class VenomProvider(BaseWhatsAppProvider):
 
     def get_features(self) -> List[str]:
         return [
-            "✅ Gratuito — sem custo por mensagem",
-            "✅ Autenticação via QR Code (WhatsApp Web)",
-            "✅ Múltiplas sessões simultâneas",
-            "✅ Texto, imagens, vídeos, áudio, documentos",
-            "✅ Grupos e broadcasts",
-            "✅ Mais estável que whatsapp-web.js",
-            "✅ Reconexão automática",
+            "Gratuito — sem custo por mensagem",
+            "Autenticação via QR Code (WhatsApp Web)",
+            "Múltiplas sessões simultâneas",
+            "Texto, imagens, vídeos, áudio, documentos",
+            "Grupos e broadcasts",
+            "Mais estável que whatsapp-web.js",
+            "Reconexão automática",
             "💡 Sem aprovação de templates necessária",
         ]
 

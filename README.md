@@ -409,9 +409,25 @@ Contribuições são bem-vindas!
 
 ---
 
+## **Segurança**
+
+- Rotas de usuário exigem JWT (`get_current_user`) ou permissão específica.
+- Webhook da Meta valida `X-Hub-Signature-256` com `M4D_APP_SECRET`.
+- Chamadas dos bridges (`/api/webhook/bridge*`, `/api/media/bridge-upload`) usam o segredo compartilhado `BRIDGE_SHARED_SECRET` (header `X-Bridge-Secret`). Sem a variável o backend aceita e registra um aviso: defina-a em produção.
+- CORS por `CORS_ORIGINS`; chat do site usa chave por conta.
+
+---
+
 ## **Licença**
 
-Este projeto está sob licença MIT.
+Todos os direitos reservados. Código publicado apenas para consulta e avaliação; veja o arquivo [LICENSE](LICENSE).
+
+---
+
+### **Componentes de terceiros**
+
+- `frontend/src/services/wa-web-bridge/patches/whatsapp-web.js+1.34.7.patch`: patch aplicado via `patch-package` sobre a biblioteca [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) (Apache-2.0, copyright dos autores originais). O patch contém trechos do código dela e continua sob a licença Apache-2.0; as alterações são minhas, o restante da biblioteca não.
+- As demais bibliotecas (Baileys, WPPConnect, React, FastAPI etc.) são instaladas como dependências e mantêm as próprias licenças.
 
 ---
 

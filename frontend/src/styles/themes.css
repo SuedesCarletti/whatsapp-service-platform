@@ -157,14 +157,14 @@
 html, body {
   background-color: var(--bg-chat);
   color: var(--text-primary);
-  /* ⭐ CRÍTICO: REMOVER transições do body/html para evitar flash branco */
+  /* CRÍTICO: REMOVER transições do body/html para evitar flash branco */
   transition: none !important;
 }
 
 /* ============================================
    TRANSIÇÕES SELETIVAS - APENAS ELEMENTOS INTERATIVOS
    ============================================ */
-/* ⭐ APENAS elementos interativos devem ter transição */
+/* APENAS elementos interativos devem ter transição */
 button:not(.message):not([class*="animation"]),
 .icon-button,
 .theme-toggle-button,
@@ -179,7 +179,7 @@ select {
               opacity 0.2s ease;
 }
 
-/* ⭐ NÃO aplicar transição em elementos estruturais */
+/* NÃO aplicar transição em elementos estruturais */
 .app-container,
 .sidebar,
 .chat-area,

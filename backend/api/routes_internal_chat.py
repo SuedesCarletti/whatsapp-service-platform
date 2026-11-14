@@ -1573,7 +1573,7 @@ async def update_internal_task(
     # de repetição — ver _write_task_history_and_maybe_notify.
     if just_completed:
         creator_name = task.creator.full_name if task.creator else "alguém"
-        text = f"✅ {current_user.full_name or current_user.email} concluiu a tarefa \"{task.title}\" — aguardando aprovação de {creator_name}."
+        text = f"{current_user.full_name or current_user.email} concluiu a tarefa \"{task.title}\" — aguardando aprovação de {creator_name}."
         await _write_task_history_and_maybe_notify(db, conv, current_user, task, "completed", text)
     elif just_reopened:
         text = f"🔄 {current_user.full_name or current_user.email} reabriu a tarefa \"{task.title}\"."

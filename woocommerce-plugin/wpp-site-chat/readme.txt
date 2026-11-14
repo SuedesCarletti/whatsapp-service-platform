@@ -3,7 +3,7 @@ Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 1.2.0
-License: Proprietary
+License: Todos os direitos reservados / All rights reserved
 
 Chat ao vivo no site conectado ao painel de atendimento WPP Lab.
 

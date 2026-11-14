@@ -672,16 +672,16 @@ class BaileysProvider(BaseWhatsAppProvider):
     def get_features(self) -> List[str]:
         return [
             "📱 Conecta via WhatsApp Web WebSocket",
-            "✅ QR Code ou código de pareamento",
-            "✅ Envio: texto, imagem, vídeo, áudio, documento, localização",
-            "✅ Sticker, GIF, view-once, enquetes, contatos, menções",
-            "✅ Editar e apagar mensagens; encaminhar; fixar; favoritar",
-            "✅ Gerenciamento completo de grupos",
-            "✅ Perfil: foto, nome, status; Privacidade; Bloquear contatos",
-            "✅ Presença (digitando, gravando) e chat management",
-            "✅ Recebimento via webhook ao FastAPI",
-            "✅ Múltiplas sessões simultâneas",
-            "✅ Persistência de credenciais via MySQL",
+            "QR Code ou código de pareamento",
+            "Envio: texto, imagem, vídeo, áudio, documento, localização",
+            "Sticker, GIF, view-once, enquetes, contatos, menções",
+            "Editar e apagar mensagens; encaminhar; fixar; favoritar",
+            "Gerenciamento completo de grupos",
+            "Perfil: foto, nome, status; Privacidade; Bloquear contatos",
+            "Presença (digitando, gravando) e chat management",
+            "Recebimento via webhook ao FastAPI",
+            "Múltiplas sessões simultâneas",
+            "Persistência de credenciais via MySQL",
             "⚠️ Não-oficial — risco de ban",
         ]
 

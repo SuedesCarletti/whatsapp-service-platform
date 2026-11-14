@@ -230,7 +230,7 @@ def format_order_message(order_id: int, status: str, line_items: list) -> str:
     """
     status_messages = {
         "pending": "⏳ Aguardando pagamento",
-        "processing": "✅ Pedido confirmado! Estamos preparando seu envio.",
+        "processing": "Pedido confirmado! Estamos preparando seu envio.",
         "on-hold": "⏸️ Pedido em espera",
         "completed": "🎉 Pedido entregue!",
         "cancelled": "❌ Pedido cancelado",

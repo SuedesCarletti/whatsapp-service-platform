@@ -94,9 +94,11 @@ from backend.database.models import Message, MessageType, Direction, MessageStat
 from backend.services.webhook_handler import webhook_handler, CIPHERTEXT_PLACEHOLDER
 from backend.services.conversation_service import conversation_service
 from backend.api.websocket import ws_manager
+from backend.api.bridge_auth import require_bridge
+from backend.api.routes_auth import get_current_user
 
 logger = logging.getLogger(__name__)
-router_bridge = APIRouter(prefix="/api/webhook")
+router_bridge = APIRouter(prefix="/api/webhook", dependencies=[Depends(require_bridge)])
 
 # ── Mapeamento de tipos Baileys → interno ─────────────────────
 BAILEYS_TYPE_MAP = {
@@ -607,7 +609,7 @@ async def register_bridge_failed(request: Request, db: Session = Depends(get_db)
 # ATUALIZA essa linha no lugar (ver "era FAILED" em webhook_handler.py) em
 # vez de criar uma segunda mensagem.
 @router_bridge.post("/bridge/retry-failed/{message_id}")
-async def retry_bridge_failed(message_id: int, db: Session = Depends(get_db)):
+async def retry_bridge_failed(message_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     message = db.query(Message).filter(Message.id == message_id).first()
     if not message:
         raise HTTPException(status_code=404, detail="Mensagem não encontrada")

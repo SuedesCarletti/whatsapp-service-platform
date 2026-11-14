@@ -10,8 +10,21 @@ import hashlib
 from backend.database.models import User, WhatsAppAccount, UserSession
 from backend.models.schemas_auth import UserCreate, UserLogin, TokenResponse
 
+import logging
 import os
-SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your-secret-key-change-in-production")
+import secrets
+
+logger = logging.getLogger(__name__)
+
+# Nunca existe um segredo "padrão" conhecido: sem JWT_SECRET_KEY, gera um aleatório
+# por processo (os logins caem a cada reinício, o que força a configuração correta).
+SECRET_KEY = os.getenv("JWT_SECRET_KEY") or ""
+if len(SECRET_KEY) < 32:
+    if SECRET_KEY:
+        logger.warning("JWT_SECRET_KEY tem menos de 32 caracteres: use um valor longo e aleatório.")
+    else:
+        logger.warning("JWT_SECRET_KEY não configurada: usando segredo temporário (sessões caem ao reiniciar).")
+        SECRET_KEY = secrets.token_urlsafe(48)
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 

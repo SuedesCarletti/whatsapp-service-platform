@@ -7,7 +7,7 @@
  * - Reações com emojis
  * - Menu de ações (copiar, responder, reagir)
  * - Suporte a múltiplos tipos de mensagem
- * - NOVO: Formatação de texto (Markdown)
+ * - Formatação de texto (Markdown)
  */
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
@@ -444,7 +444,7 @@ const ChatArea = ({
   // enquanto seu dia estiver na tela; só "sobe" pra um selo fixo no topo
   // quando o próprio divisor daquele dia já rolou pra fora da vista — ou
   // seja, só troca de data depois de passar a última mensagem do dia
-  // anterior, nunca dois ao mesmo tempo (cada divisor tem só 1 instância no
+  // anterior, nunca dois ao mesmo tempo (cada divisor tem só 1 instncia no
   // DOM, controlada por estado — elimina qualquer sobreposição visual).
   const messagesContainerRef = useRef(null);
   const [floatingDateLabel, setFloatingDateLabel] = useState(null);
@@ -604,13 +604,20 @@ const ChatArea = ({
   // HELPER FUNCTIONS
 
   /**
-   * NOVO: Converte texto com formatação Markdown para HTML
+   * Converte texto com formatação Markdown para HTML
    * Suporta: *negrito*, _itálico_, ~tachado~, `código`
    */
   const parseMarkdown = (text) => {
     if (!text) return '';
-    
-    let parsed = text;
+
+    // O texto vem de terceiros (mensagens de clientes): escapar HTML ANTES de aplicar
+    // a formatação, senão <img onerror=...> numa mensagem executa script no painel.
+    let parsed = String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
 
     // -1. Números de telefone clicáveis (igual ao WhatsApp) — antes dos
     // passos de URL/imagem abaixo, pro regex de telefone (só dígitos/
@@ -1446,7 +1453,7 @@ const ChatArea = ({
         <div className="message-content" style={productQuestionStyles.card}>
           <div style={productQuestionStyles.badge}>
             ❓ Dúvida de produto {answered
-              ? `· ✅ respondida ${q.answered_via === 'site' ? 'no site (WordPress)' : 'pelo painel'}`
+              ? `· respondida ${q.answered_via === 'site' ? 'no site (WordPress)' : 'pelo painel'}`
               : q.status === 'sending' ? '· ⏳ publicando no site…'
               : q.status === 'delivery_failed' ? '· ⚠️ falha ao publicar no site'
               : '· aguardando resposta'}
@@ -1760,7 +1767,7 @@ const ChatArea = ({
             // onOpenParticipantInfo mais abaixo) — abre o modal de "info do
             // contato" (foto + nome salvo/número), de onde também dá pra abrir a
             // conversa. from_number precisa ser só dígitos (o vCard traz formatado,
-            // ex. "+55 44 8414-6379").
+            // ex. "+55 11 99999-0002").
             const openInfo = () => {
               if (!onOpenParticipantInfo || !primaryPhone) return;
               const clean = primaryPhone.replace(/\D/g, '');

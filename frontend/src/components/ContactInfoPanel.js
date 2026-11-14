@@ -327,7 +327,7 @@ const ContactInfoPanel = ({
                   <strong>Identificação</strong>
                   <p>
                     {visitor.verified
-                      ? '✅ Cliente logado na loja (verificado)'
+                      ? 'Cliente logado na loja (verificado)'
                       : '⚠️ Visitante não verificado (dados informados por ele)'}
                   </p>
                 </div>

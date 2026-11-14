@@ -170,7 +170,7 @@ class SendMediaMessage(BaseModel):
         return clean_recipient(v)
 
 
-# NOVO: CONTATOS (VCARD)
+  # CONTATOS (VCARD)
 
 class ContactName(BaseModel):
     """Nome do contato"""
@@ -255,7 +255,7 @@ class SendContactMessage(BaseModel):
         return v
 
 
-# NOVO: MENSAGENS INTERATIVAS
+  # MENSAGENS INTERATIVAS
 
 class InteractiveButton(BaseModel):
     """Botão individual de resposta"""
@@ -368,7 +368,7 @@ class SendInteractiveMessage(BaseModel):
         return clean_recipient(v)
 
 
-# NOVO: REAÇÕES
+  # REAÇÕES
 
 class SendReactionMessage(BaseModel):
     """Schema para enviar reação (emoji)"""
@@ -439,7 +439,7 @@ class MarkMessageRead(BaseModel):
     """
     Schema para marcar mensagem como lida
     
-    ✅ CORRIGIDO: Removido alias para evitar confusão
+    CORRIGIDO: Removido alias para evitar confusão
     Frontend envia: {"message_id": "wamid.HBg..."}
     """
     message_id: str = Field(..., description="WAMID da mensagem a ser marcada como lida")
@@ -455,7 +455,7 @@ class MarkMessageRead(BaseModel):
         }
 
 
-# LOGIN & AUTHENTICATION <--- NOVO
+# LOGIN & AUTHENTICATION
 
 class UserLogin(BaseModel):
     """Schema para requisição de login"""

@@ -32,6 +32,18 @@
 const express     = require('express');
 const wppconnect  = require('@wppconnect-team/wppconnect');
 const axios       = require('axios');
+
+// Segredo compartilhado bridge -> backend (BRIDGE_SHARED_SECRET no backend e aqui).
+axios.interceptors.request.use((config) => {
+  const secret = process.env.BRIDGE_SHARED_SECRET;
+  const url = typeof config?.url === 'string' ? config.url : '';
+  if (secret && (url.includes('/api/webhook/') || url.includes('/api/media/bridge-upload'))) {
+    config.headers = config.headers || {};
+    config.headers['X-Bridge-Secret'] = secret;
+  }
+  return config;
+});
+
 const path        = require('path');
 const fs          = require('fs');
 const { startPageProbe } = require('./page-probe');
@@ -282,7 +294,7 @@ async function healCiphertextMessages() {
  *   qr_string: string | null,
  *   status:    'idle'|'qr_required'|'authenticated'|'disconnected'|'error',
  *   phone:     string | null,
- *   starting:  boolean,         ← evita inicializações simultâneas
+ *   starting:  boolean,         ← evita inicializações simultneas
  * }
  */
 const sessions = new Map();
@@ -1416,7 +1428,7 @@ async function downloadAndUploadMedia(client, message, payload, wamid, attempt =
     // blobToBase64 (wa-js, por baixo do client.downloadMedia) monta a data URI
     // via FileReader.readAsDataURL. Duas pegadinhas confirmadas ao vivo:
     // 1) mimetype vazio quando o Blob não carrega um `type` — data:;base64,...
-    // 2) mimetype COM parâmetro (RFC 2397) — voz sempre vem como
+    // 2) mimetype COM parmetro (RFC 2397) — voz sempre vem como
     //    "data:audio/ogg; codecs=opus;base64,..." — o `;` do "codecs=opus" faz
     //    parte do mediatype, não separa ele do "base64,". `[^;]*` (só até o
     //    1º `;`) cortava o regex bem no meio disso e rejeitava TODO áudio.
@@ -1914,7 +1926,7 @@ function requireClient(session_id) {
 // já tendo enviado mensagem para ele), a lib lança "Chat not found".
 // client.pinChat(id, false, true) força um WPP.chat.find(id) como efeito
 // colateral documentado (é o mesmo truque que a própria lib usa
-// internamente via seu parâmetro `nonExistent`) sem alterar o pin real.
+// internamente via seu parmetro `nonExistent`) sem alterar o pin real.
 // BUG confirmado ao vivo (2026-09-18): getAllMessagesInChat é uma chamada
 // pesada e SEM timeout próprio — força a lib a sincronizar o histórico
 // inteiro do chat de destino. Pra contato com histórico grande (ou
@@ -2063,12 +2075,12 @@ app.post('/send/text', async (req, res) => {
 // data URI (data:mime;base64,...) no lugar do path/URL.
 function toDataUriOrUrl(url, base64_data, mimetype) {
   if (base64_data) {
-    // BUG: mimetype vem com parâmetro extra do conversor de áudio do backend
+    // BUG: mimetype vem com parmetro extra do conversor de áudio do backend
     // (ex.: "audio/ogg; codecs=opus") — um data URI com esse "; codecs=opus"
     // ANTES do ";base64," faz o parser de data URL do wa-js (dentro do
     // navegador) rejeitar tudo com "invalid_data_url" (confirmado ao vivo).
     // WhatsApp só precisa do tipo base (audio/ogg) pra reconhecer o áudio,
-    // o parâmetro de codec não muda nada pro envio.
+    // o parmetro de codec não muda nada pro envio.
     const cleanMime = (mimetype || 'application/octet-stream').split(';')[0].trim();
     return `data:${cleanMime};base64,${base64_data}`;
   }

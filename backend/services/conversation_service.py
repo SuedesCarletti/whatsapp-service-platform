@@ -1,7 +1,7 @@
 """
 ConversationService - Gerenciamento de conversas e mensagens
-✅ VERSÃO CORRIGIDA - SEMPRE retorna campo 'message' para frontend
-✅ Suporte a account_id para multi-conta (Baileys + Cloud API)
+VERSÃO CORRIGIDA - SEMPRE retorna campo 'message' para frontend
+Suporte a account_id para multi-conta (Baileys + Cloud API)
 """
 import logging
 import re
@@ -74,7 +74,7 @@ def _br_mobile_alt_wa_id(wa_id: str) -> Optional[str]:
 
 
 def _format_phone_display(wa_id: str) -> str:
-    """Formats a wa_id/phone number for display (e.g. +55 44 9729-1715)."""
+    """Formats a wa_id/phone number for display (e.g. +55 11 99999-0001)."""
     if not wa_id:
         return "Desconhecido"
     digits = wa_id.replace("+", "").replace("-", "").replace(" ", "").split("@")[0]
@@ -173,7 +173,7 @@ class ConversationService:
                 contact = db.query(Contact).filter(Contact.wa_id == alt_wa_id).first()
                 if contact:
                     logger.info(
-                        f"✅ Contato encontrado pela forma alternativa (9º dígito) "
+                        f"Contato encontrado pela forma alternativa (9º dígito) "
                         f"wa_id={alt_wa_id} (recebido={wa_id}) — reaproveitando, sem duplicar"
                     )
 
@@ -184,7 +184,7 @@ class ConversationService:
             contact = db.query(Contact).filter(Contact.lid == lid).first()
             if contact:
                 logger.info(
-                    f"✅ Contato resolvido via LID={lid} → wa_id real={contact.wa_id} "
+                    f"Contato resolvido via LID={lid} → wa_id real={contact.wa_id} "
                     f"(evitando contato duplicado com LID como wa_id)"
                 )
                 # wa_id passado ainda é o LID numérico — NÃO atualiza; o wa_id real já está correto.
@@ -208,7 +208,7 @@ class ConversationService:
                     contact = db.query(Contact).filter(Contact.phone_number == resolved_phone).first()
                     if contact:
                         logger.info(
-                            f"✅ LID {lid_to_search} resolvido via baileys_lid_map "
+                            f"LID {lid_to_search} resolvido via baileys_lid_map "
                             f"→ phone {resolved_phone} (contact id={contact.id})"
                         )
                         if not contact.lid:
@@ -518,7 +518,7 @@ class ConversationService:
     def get_all_conversations_with_last_message(
         self,
         db: Session,
-        account_id: Optional[int] = None,   # NOVO
+        account_id: Optional[int] = None,
         restrict_to_user_id: Optional[int] = None,
         allowed_account_ids: Optional[set] = None,
     ) -> List[Dict[str, Any]]:
@@ -531,7 +531,7 @@ class ConversationService:
         allowed_account_ids: quando setado (mesmo que vazio), só retorna
         conversas de contas WhatsApp explicitamente concedidas ao usuário —
         usado quando o papel não tem feature_view_all_accounts.
-        ✅ CORRIGIDO - USA last_message_at
+        CORRIGIDO - USA last_message_at
         """
         try:
             # status@broadcast (Status/Stories do WhatsApp) vira uma Conversation normal

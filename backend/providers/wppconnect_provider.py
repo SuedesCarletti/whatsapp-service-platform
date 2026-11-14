@@ -458,12 +458,12 @@ class WPPConnectProvider(BaseWhatsAppProvider):
 
     def get_features(self) -> List[str]:
         return [
-            "✅ Gratuito — sem custo por mensagem",
-            "✅ Autenticação via QR Code (WhatsApp Web)",
-            "✅ Múltiplas sessões simultâneas",
-            "✅ Texto, imagens, vídeos, áudio, documentos",
-            "✅ Localização, grupos, broadcasts",
-            "✅ Reconexão automática",
+            "Gratuito — sem custo por mensagem",
+            "Autenticação via QR Code (WhatsApp Web)",
+            "Múltiplas sessões simultâneas",
+            "Texto, imagens, vídeos, áudio, documentos",
+            "Localização, grupos, broadcasts",
+            "Reconexão automática",
         ]
 
     def get_warnings(self) -> List[str]:

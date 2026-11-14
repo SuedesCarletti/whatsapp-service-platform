@@ -360,7 +360,7 @@ const LocationSender = ({ conversation, onClose, onSent }) => {
 
           {success && (
             <div className="location-sender-success">
-              ✅ Localização enviada com sucesso!
+              Localização enviada com sucesso!
             </div>
           )}
         </div>

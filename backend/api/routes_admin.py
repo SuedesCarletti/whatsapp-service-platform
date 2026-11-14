@@ -11,6 +11,8 @@ from typing import List, Optional, Dict, Any, Union, Literal
 from datetime import datetime, timedelta
 from pydantic import BaseModel, Field
 
+import logging
+
 from backend.database.connection import get_db
 from backend.database.models import (
     User, WhatsAppAccount, ProviderChange, Message, Conversation, Role, PendingChange,
@@ -25,6 +27,8 @@ from backend.models.schemas_auth import (
     ProviderTier,
     AuthenticationStatus
 )
+
+logger = logging.getLogger(__name__)
 
 router_admin = APIRouter(prefix="/api/admin", tags=["Admin"])
 security = HTTPBearer()
@@ -236,7 +240,7 @@ async def get_admin_user(
     db: Session = Depends(get_db)
 ):
     """
-    ✅ FIX: Dependency correta para FastAPI.
+    FIX: Dependency correta para FastAPI.
     Antes usava Depends(auth_service.get_current_user) diretamente,
     o que causava FastAPIError porque Session não é campo Pydantic.
     """

@@ -139,9 +139,9 @@ const NewChatModal = ({ onClose, onStartChat, accountId }) => {
             </button>
           </div>
 
-          {/* Incidente real (2026-09-02, repetido 2026-09-03 com "62998593848"
+          {/* Incidente real (2026-09-02, repetido 2026-09-03 com "11999990004"
               — 5 tentativas de envio falhando com 500/502 até alguém digitar
-              de novo já com 55 na frente): "85999829535" (DDD+número, sem o
+              de novo já com 55 na frente): "11999990005" (DDD+número, sem o
               55 do Brasil) foi tratado pelo WhatsApp como número inexistente
               ("No LID for user"). O aviso sozinho não bastava — passava
               despercebido e o atendente insistia tentando enviar do mesmo

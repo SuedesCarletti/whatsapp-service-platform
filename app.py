@@ -19,7 +19,7 @@ from backend.services.webhook_handler import webhook_handler
 from sqlalchemy.orm import Session
 from backend.api.routes_extended import router_extended
 from backend.services.webhook_handler_extended import webhook_extended
-from backend.services.woocommerce_integration import woocommerce_router # ⬅NOVO
+from backend.services.woocommerce_integration import woocommerce_router
 from backend.api.routes_auth import router_auth
 from backend.api.routes_admin import router_admin
 from backend.middleware.provider_middleware import ProviderRoutingMiddleware
@@ -158,7 +158,7 @@ async def lifespan(app: FastAPI):
                 "ALTER TABLE messages ADD COLUMN failed_payload JSON NULL",
                 # Corrida confirmada 2026-09-03 (contact_id=210, account_id=15,
                 # conversas 268/269 — a 2ª vazia, criada 1s depois): 2 mensagens
-                # quase simultâneas pro mesmo contato+conta passavam pelo SELECT
+                # quase simultneas pro mesmo contato+conta passavam pelo SELECT
                 # de get_or_create_conversation antes de qualquer INSERT
                 # commitar. Ficou mais provável com o processamento de webhook
                 # concorrente (routes_bridge.py::WEBHOOK_EXECUTOR). Duplicata
@@ -233,7 +233,7 @@ async def lifespan(app: FastAPI):
 async def validate_webhook_signature(request: Request, call_next):
     """
     Middleware com logs detalhados para descobrir onde está o erro.
-    Movido para após o lifespan para garantir que `app` seja a instância final.
+    Movido para após o lifespan para garantir que `app` seja a instncia final.
     """
     
     # 1. RADAR: Logar TUDO que chega para sabermos o que está a acontecer
@@ -303,6 +303,18 @@ app = FastAPI(
 # IMPORTANTE: Este middleware DEVE vir ANTES do CORS
 # A função foi definida acima e é adicionada aqui.
 app.middleware("http")(validate_webhook_signature)
+
+
+@app.middleware("http")
+async def harden_uploaded_files(request: Request, call_next):
+    """Arquivos enviados por usuários nunca executam script na nossa origem (HTML/SVG enviados)."""
+    response = await call_next(request)
+    if request.url.path.startswith("/uploads/"):
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Content-Security-Policy"] = (
+            "sandbox; default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'unsafe-inline'"
+        )
+    return response
 
 # CORS
 allowed_origins = [
@@ -375,7 +387,7 @@ async def handle_message(request: Request, db: Session = Depends(get_db)):
 # API ROUTES (Prefixo /api)
 app.include_router(router, prefix="/api", tags=["WhatsApp API"])
 app.include_router(router_extended, tags=["WhatsApp Advanced"])
-app.include_router(woocommerce_router, prefix="/api", tags=["WooCommerce"]) # ⬅NOVO
+app.include_router(woocommerce_router, prefix="/api", tags=["WooCommerce"])
 app.include_router(router_auth)
 app.include_router(router_admin)
 app.add_middleware(ProviderRoutingMiddleware)
@@ -469,7 +481,7 @@ async def root():
         <a href="/api/health" class="link">Health Check</a>
         
         <h2>📊 Status do Sistema</h2>
-        <div class="status ok">✅ API Online (v1.0.1 - Signature Fix)</div>
+        <div class="status ok">API Online (v1.0.1 - Signature Fix)</div>
     </body>
     </html>
     """
@@ -515,12 +527,12 @@ async def api_info():
         "signature_validation": "fixed",
         "description": "API REST para gerenciar chat do WhatsApp Business Cloud API",
         "endpoints": [
-            "/api/auth/login - Login (NOVO)",
+            "/api/auth/login - Login",
             "/api/health - Health check",
             "/api/webhook - Webhook do WhatsApp",
             "/api/send - Enviar mensagens",
             "/api/conversations - Listar conversas",
-            "/api/woocommerce/webhook/order - Webhook WooCommerce (NOVO)",
+            "/api/woocommerce/webhook/order - Webhook WooCommerce",
             "/docs - Documentação completa"
         ],
         "features": [

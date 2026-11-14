@@ -74,7 +74,7 @@ def _parse_single_vcard(vcard: str, fallback_name: str) -> str:
             continue
         prop, _, value = line.partition(":")
         value = value.strip()
-        # remove prefixo de grupo (ex.: "item1.TEL;waid=...") e parâmetros
+        # remove prefixo de grupo (ex.: "item1.TEL;waid=...") e parmetros
         # (ex.: ";TYPE=CELL") pra achar o nome real da propriedade
         prop_name = prop.upper().split(".")[-1].split(";")[0]
         if prop_name == "FN":
@@ -437,7 +437,7 @@ class WebhookHandler:
         formato de outro provider terminado em "_out"/"_in" (sufixo
         genérico repetido em muitas mensagens). Auditoria ao vivo achou
         centenas de milhares de pares falsos com a versão ingênua. A
-        âncora "^...$" nos dois regex abaixo garante que só extrai quando
+        ncora "^...$" nos dois regex abaixo garante que só extrai quando
         a string INTEIRA bate com um dos dois formatos — nunca um pedaço
         solto de outra coisa.
         """
@@ -1835,7 +1835,7 @@ from dotenv import load_dotenv
 # Carregar variáveis de ambiente
 load_dotenv()
 
-# Criar instância global do webhook handler
+# Criar instncia global do webhook handler
 webhook_handler = WebhookHandler()
 
 # webhook_handler_coexistence.py não importa este módulo (evita import

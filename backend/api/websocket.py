@@ -289,7 +289,7 @@ class WebSocketManager:
 
     async def broadcast_reaction_update(self, reaction_data: Dict[str, Any]):
         """
-        ⭐ NOVO: Envia atualização de reação para todos os clientes
+        Envia atualização de reação para todos os clientes
         
         Args:
             reaction_data: Dados da reação {
@@ -484,7 +484,7 @@ class WebSocketManager:
             logger.error(f"Erro ao notificar mudança pendente via WebSocket: {e}")
 
 
-# Instância global do manager
+# Instncia global do manager
 ws_manager = WebSocketManager(sio)
 
 

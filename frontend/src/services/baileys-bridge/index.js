@@ -83,6 +83,16 @@ if (FALLBACK_ONLY_SESSIONS.size) {
 // conta primaria deduplicando por wamid (HISTORY_MERGE_FROM_FALLBACK, padrao ligado).
 // Trafego ao vivo e catch-up continuam bloqueados aqui e la.
 const MERGE_FALLBACK_HISTORY = process.env.HISTORY_MERGE_FROM_FALLBACK !== 'false';
+// Segredo compartilhado bridge -> backend (BRIDGE_SHARED_SECRET no backend e aqui).
+axios.interceptors.request.use((config) => {
+  const secret = process.env.BRIDGE_SHARED_SECRET;
+  const url = typeof config?.url === 'string' ? config.url : '';
+  if (secret && (url.includes('/api/webhook/') || url.includes('/api/media/bridge-upload'))) {
+    config.headers = config.headers || {};
+    config.headers['X-Bridge-Secret'] = secret;
+  }
+  return config;
+});
 axios.interceptors.request.use((config) => {
   const sid = config?.data?.session_id;
   const isHistorySync = typeof config?.url === 'string' && config.url.endsWith('/api/webhook/bridge/sync');
@@ -258,7 +268,7 @@ async function fixOrphanedConversations() {
     );
 
     if (total === 0) {
-      logger.info('[OrphanFix] Nenhuma conversa órfã encontrada ✅');
+      logger.info('[OrphanFix] Nenhuma conversa órfã encontrada ');
       return;
     }
 
@@ -293,7 +303,7 @@ async function fixOrphanedConversations() {
     } catch (_) {}
 
     logger.info(
-      '[OrphanFix] ✅ Vinculadas %d conversas e %d mensagens à conta id=%d ("%s")',
+      '[OrphanFix] Vinculadas %d conversas e %d mensagens à conta id=%d ("%s")',
       convResult.affectedRows, msgCount, targetId, accounts[0].account_name,
     );
   } catch (err) {
@@ -538,7 +548,7 @@ async function startSession(session_id) {
         state.phone          = sock.user?.id?.split(':')[0] || null;
         state.reconnectCount = 0;
         state.starting       = false;
-        logger.info({ session_id, phone: state.phone }, '[Baileys] Autenticado ✅');
+        logger.info({ session_id, phone: state.phone }, '[Baileys] Autenticado ');
         await loadLidMapFromDB(session_id);
 
         // Sincroniza metadados e participantes de todos os grupos ao conectar
@@ -1688,7 +1698,7 @@ async function startSessionForPairingCode(session_id, phone_number) {
           state.pairingCode = fmt;
           state.starting    = false;
           clearTimeout(timeout);
-          logger.info({ session_id, digits }, '[Baileys] Pairing code gerado ✅');
+          logger.info({ session_id, digits }, '[Baileys] Pairing code gerado ');
           resolve(fmt);
         } catch (err) {
           // Se falhou no pairing, limpa tudo automaticamente
@@ -1996,7 +2006,7 @@ app.post('/send/audio', async (req, res) => {
     const effectiveMime = mimetype || 'audio/ogg; codecs=opus';
     logger.info({ session_id, to: jid, bytes: audioBuffer?.length, mime: effectiveMime }, '[send/audio] enviando PTT');
     const result = await sock.sendMessage(jid, { audio: media, mimetype: effectiveMime, ptt: true }, opts);
-    logger.info({ message_id: result?.key?.id }, '[send/audio] enviado ✅');
+    logger.info({ message_id: result?.key?.id }, '[send/audio] enviado ');
     if (result?.key?.remoteJid?.endsWith('@lid')) {
       if (!lidToJidMap[session_id]) lidToJidMap[session_id] = {};
       const digits = String(to).replace(/\D/g, '');

@@ -28,6 +28,18 @@
 const express = require('express');
 const { Client, LocalAuth, MessageMedia, Location, Poll } = require('whatsapp-web.js');
 const axios   = require('axios');
+
+// Segredo compartilhado bridge -> backend (BRIDGE_SHARED_SECRET no backend e aqui).
+axios.interceptors.request.use((config) => {
+  const secret = process.env.BRIDGE_SHARED_SECRET;
+  const url = typeof config?.url === 'string' ? config.url : '';
+  if (secret && (url.includes('/api/webhook/') || url.includes('/api/media/bridge-upload'))) {
+    config.headers = config.headers || {};
+    config.headers['X-Bridge-Secret'] = secret;
+  }
+  return config;
+});
+
 const QRCode  = require('qrcode');
 const path    = require('path');
 const fs      = require('fs');

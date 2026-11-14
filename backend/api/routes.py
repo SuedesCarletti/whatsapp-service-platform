@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import logging
 import os
+import re
 from pathlib import Path
 import aiofiles
 import httpx
@@ -17,6 +18,7 @@ from backend.database.connection import get_db
 from backend.services.whatsapp_service import WhatsAppService, WhatsAppAPIError
 from backend.services.conversation_service import ConversationService, _br_mobile_alt_wa_id
 from backend.api.routes_auth import get_current_user
+from backend.api.bridge_auth import require_bridge
 from backend.api.permissions import user_has_permission
 from backend.api.websocket import ws_manager
 from backend.models.database_models import Message, Direction, MessageStatus, Conversation, Contact, MediaFile  # <-- ADDED MediaFile
@@ -424,7 +426,7 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 
 router = APIRouter()
 
-@router.post("/upload/public")
+@router.post("/upload/public", dependencies=[Depends(get_current_user)])
 async def upload_public_media(
     request: Request,
     file: UploadFile = File(...)
@@ -467,7 +469,7 @@ async def upload_public_media(
 
 # ENDPOINT DE UPLOAD DE MÍDIA DO BRIDGE
 
-@router.post("/media/bridge-upload")
+@router.post("/media/bridge-upload", dependencies=[Depends(require_bridge)])
 async def bridge_media_upload(
     request: Request,
     media_id: str,
@@ -1609,19 +1611,19 @@ async def send_cta_url_button(
         logger.error(f"Erro ao enviar botão CTA: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# ENDPOINT: PROXY DE MÍDIA (CORRIGIDO)
+# ENDPOINT: PROXY DE MÍDIA
 @router.get("/media/proxy/{media_id}")
 async def proxy_media(media_id: str, db: Session = Depends(get_db)):
     """
     Proxy para servir mídias do WhatsApp Cloud API
-    ✅ CORREÇÃO FINAL: Removida validação incorreta de tamanho
+    CORREÇÃO FINAL: Removida validação incorreta de tamanho
     """
     try:
         logger.info(f"[PROXY] Requisição de mídia: {media_id}")
         
         # VALIDAÇÃO BÁSICA: apenas verifica se não está vazio
-        if not media_id or len(media_id) < 5:
-            logger.warning(f"[PROXY] Media ID muito curto: {media_id}")
+        if not media_id or not re.fullmatch(r"[A-Za-z0-9_.\-]{5,200}", media_id):
+            logger.warning(f"[PROXY] Media ID inválido: {media_id!r}")
             raise HTTPException(
                 status_code=400,
                 detail="ID de mídia inválido"
@@ -2026,7 +2028,7 @@ async def send_interactive_product_list(
 
 # MÍDIA AVANÇADA (CLEANUP & STATS) # <-- NEW SECTION
 
-@router.post("/media/cleanup")
+@router.post("/media/cleanup", dependencies=[Depends(get_current_user)])
 async def cleanup_old_media(
     days: int = 365,
     db: Session = Depends(get_db)
@@ -2087,7 +2089,7 @@ async def cleanup_old_media(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/media/stats")
+@router.get("/media/stats", dependencies=[Depends(get_current_user)])
 async def get_media_stats(db: Session = Depends(get_db)):
     """Estatísticas de armazenamento de mídias"""
     try:
@@ -2128,7 +2130,7 @@ async def get_media_stats(db: Session = Depends(get_db)):
 
 # NOVOS ENDPOINTS - REAÇÕES
 
-@router.post("/send/reaction")
+@router.post("/send/reaction", dependencies=[Depends(get_current_user)])
 async def send_reaction(
     message: SendReactionMessage,
     db: Session = Depends(get_db)
@@ -2185,7 +2187,7 @@ async def send_reaction(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/send/reaction/remove")
+@router.post("/send/reaction/remove", dependencies=[Depends(get_current_user)])
 async def remove_reaction(
     message: RemoveReactionMessage,
     db: Session = Depends(get_db)
@@ -2242,7 +2244,7 @@ async def send_template_message(
     """
     Envia mensagem template pré-aprovada
     
-    ✅ CORRIGIDO: Adiciona tratamento específico para templates não aprovados
+    CORRIGIDO: Adiciona tratamento específico para templates não aprovados
     
     Body:
     {
@@ -2386,12 +2388,12 @@ async def send_template_message(
 
 # MARCAR COMO LIDA
 
-@router.post("/messages/read")
+@router.post("/messages/read", dependencies=[Depends(get_current_user)])
 async def mark_message_read(message: MarkMessageRead, db: Session = Depends(get_db)):
     """
     Marca mensagem como lida
     
-    ✅ CORRIGIDO: Valida idade da mensagem antes de chamar API da Meta
+    CORRIGIDO: Valida idade da mensagem antes de chamar API da Meta
     Mensagens com mais de 30 dias não podem ser marcadas como lidas
     
     Body:
@@ -2480,7 +2482,7 @@ async def mark_message_read(message: MarkMessageRead, db: Session = Depends(get_
         
 # UPSERT DE CONTATO (participantes de grupo)
 
-@router.post("/contacts/upsert")
+@router.post("/contacts/upsert", dependencies=[Depends(get_current_user)])
 async def upsert_contact(request: Request, db: Session = Depends(get_db)):
     """Cria ou atualiza contato individual. Usado para registrar participantes de grupos."""
     try:
@@ -2513,7 +2515,7 @@ async def upsert_contact(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e) or type(e).__name__)
 
 
-@router.post("/conversations/open")
+@router.post("/conversations/open", dependencies=[Depends(get_current_user)])
 async def open_conversation(request: Request, db: Session = Depends(get_db)):
     """
     Abre (cria se necessário) a conversa 1:1 com um número, sem enviar nenhuma
@@ -2597,7 +2599,7 @@ async def get_conversations(
         logger.error(f"Erro ao buscar conversas: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/conversations/search")
+@router.get("/conversations/search", dependencies=[Depends(get_current_user)])
 async def search_conversations(
     q: str,
     account_id: Optional[int] = None,
@@ -2613,7 +2615,7 @@ async def search_conversations(
         logger.error(f"Erro ao buscar conversas por termo: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/messages/search")
+@router.get("/messages/search", dependencies=[Depends(get_current_user)])
 async def search_messages(
     q: str,
     account_id: Optional[int] = None,
@@ -2629,7 +2631,7 @@ async def search_messages(
         logger.error(f"Erro ao buscar mensagens por termo: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/statuses")
+@router.get("/statuses", dependencies=[Depends(get_current_user)])
 async def get_statuses(
     account_id: Optional[int] = None,
     db: Session = Depends(get_db)
@@ -2649,7 +2651,7 @@ async def get_statuses(
         logger.error(f"Erro ao buscar status: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/conversations/{conversation_id}/messages")
+@router.get("/conversations/{conversation_id}/messages", dependencies=[Depends(get_current_user)])
 async def get_messages(
     conversation_id: int,
     limit: int = 50,
@@ -2684,7 +2686,7 @@ async def get_messages(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/conversations/{conversation_id}/read")
+@router.post("/conversations/{conversation_id}/read", dependencies=[Depends(get_current_user)])
 async def mark_conversation_read(
     conversation_id: int,
     db: Session = Depends(get_db)
@@ -2735,7 +2737,7 @@ async def mark_conversation_read(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/conversations/{conversation_id}/unread")
+@router.post("/conversations/{conversation_id}/unread", dependencies=[Depends(get_current_user)])
 async def mark_conversation_unread(
     conversation_id: int,
     db: Session = Depends(get_db)
@@ -2783,7 +2785,7 @@ async def mark_conversation_unread(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/conversations/{conversation_id}/messages")
+@router.delete("/conversations/{conversation_id}/messages", dependencies=[Depends(get_current_user)])
 async def clear_conversation_messages(
     conversation_id: int,
     db: Session = Depends(get_db)

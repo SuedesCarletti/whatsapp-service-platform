@@ -597,7 +597,7 @@ body {
      "lá embaixo" em vez de claramente ao lado da mensagem inteira. */
   align-items: center;
   gap: 4px;
-  position: relative; /* ✅ Necessário para posicionamento absoluto dos menus */
+  position: relative; /* Necessário para posicionamento absoluto dos menus */
   /* O limite de 75% precisa estar aqui, não em .message-bubble: como este
      container não tem largura própria (flex item shrink-to-fit), um
      max-width:% no filho resolvia contra esse tamanho intermediário e
@@ -1223,9 +1223,9 @@ body {
 
 .emoji-picker {
   position: absolute;
-  bottom: calc(100% + 8px); /* ✅ Acima do botão */
+  bottom: calc(100% + 8px); /* Acima do botão */
   right: 0;
-  background-color: var(--bg-primary); /* ✅ Cor adaptada ao tema */
+  background-color: var(--bg-primary); /* Cor adaptada ao tema */
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 8px;
@@ -1470,7 +1470,7 @@ body {
   left: 0; /* FIX: Ancorar à esquerda (Expande para dentro em 'sent') */
 }
 
-/* ⭐ NOVO: Classes dinâmicas para controle de direção (JS) */
+/* Classes dinâmicas para controle de direção (JS) */
 .message-action-menu.open-downwards {
   top: 100%; /* Abrir para baixo */
   bottom: auto;
@@ -1511,7 +1511,7 @@ body {
   padding: 10px 15px;
   background: none;
   border: none;
-  color: var(--text-primary); /* ✅ Cor adaptada ao tema */
+  color: var(--text-primary); /* Cor adaptada ao tema */
   font-size: 14px;
   cursor: pointer;
   transition: background 0.2s;
@@ -1753,9 +1753,9 @@ body {
 
 .feature-action-menu {
   position: absolute;
-  bottom: calc(100% + 8px); /* ✅ Expandindo PARA CIMA */
+  bottom: calc(100% + 8px); /* Expandindo PARA CIMA */
   left: 0;
-  background-color: var(--bg-primary); /* ✅ Cor adaptada ao tema */
+  background-color: var(--bg-primary); /* Cor adaptada ao tema */
   border: 1px solid var(--border-color);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -1789,7 +1789,7 @@ body {
 .feature-action-menu-header span {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-primary); /* ✅ Cor adaptada ao tema */
+  color: var(--text-primary); /* Cor adaptada ao tema */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -1802,7 +1802,7 @@ body {
   padding: 12px 16px;
   background: none;
   border: none;
-  color: var(--text-primary); /* ✅ Cor adaptada ao tema */
+  color: var(--text-primary); /* Cor adaptada ao tema */
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;

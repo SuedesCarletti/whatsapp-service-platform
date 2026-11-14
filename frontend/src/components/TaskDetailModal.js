@@ -26,7 +26,7 @@ const PRIORITY_META = {
 
 const TASK_HISTORY_LABELS = {
   created: '📋 criou a tarefa',
-  completed: '✅ concluiu a tarefa',
+  completed: 'concluiu a tarefa',
   approved: '👍 aprovou a conclusão',
   rejected: '👎 reprovou a conclusão',
   reopened: '🔄 reabriu a tarefa',
@@ -175,7 +175,7 @@ const TaskDetailModal = ({ task, conversation, currentUserId, onClose, onUpdate,
           </div>
           {isDone && task.completed_by && (
             <div style={{ fontSize: 12, opacity: 0.6, marginTop: -12, marginLeft: 28 }}>
-              ✅ Concluída por {task.completed_by.full_name} {task.completed_at && `em ${moment(task.completed_at).format('DD/MM/YYYY HH:mm')}`}
+              Concluída por {task.completed_by.full_name} {task.completed_at && `em ${moment(task.completed_at).format('DD/MM/YYYY HH:mm')}`}
             </div>
           )}
           {task.approved_by && (

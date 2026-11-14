@@ -26,7 +26,7 @@ html, body, #root {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  /* ⭐ CRÍTICO: Remover transição para evitar flash branco */
+  /* CRÍTICO: Remover transição para evitar flash branco */
   transition: none !important;
 }
 
@@ -39,7 +39,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-chat);
   color: var(--text-primary);
-  /* ⭐ CRÍTICO: Remover transição do body */
+  /* CRÍTICO: Remover transição do body */
   transition: none !important;
 }
 

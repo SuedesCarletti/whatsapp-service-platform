@@ -294,7 +294,7 @@ FALLBACK_TEMPLATES = [
         "category": "UTILITY", "language": "pt_BR", "status": "APPROVED",
         "_source": "fallback",
         "components": [
-            {"type": "HEADER", "format": "TEXT", "text": "✅ Pedido Confirmado"},
+            {"type": "HEADER", "format": "TEXT", "text": "Pedido Confirmado"},
             {"type": "BODY",   "text": "Seu pedido #{{1}} foi confirmado!\n\nTotal: R$ {{2}}\nEntrega: {{3}}"},
             {"type": "FOOTER", "text": "Obrigado pela preferência!"},
         ],

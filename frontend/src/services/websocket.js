@@ -169,7 +169,7 @@ class WebSocketService {
   }
 
   /**
-   * NOVO: Listener para atualizações de reações
+   * Listener para atualizações de reações
    * @param {Function} callback - Callback executado quando uma reação é recebida
    */
   onReactionUpdate(callback) {
@@ -235,7 +235,7 @@ class WebSocketService {
   }
 }
 
-// Instância singleton
+// Instncia singleton
 const wsService = new WebSocketService();
 
 // PING REMOVIDO: Socket.IO já faz isso automaticamente!

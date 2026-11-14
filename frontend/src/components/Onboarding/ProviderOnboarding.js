@@ -104,7 +104,7 @@ const BRIDGE_INFO = {
     ],
   },
   baileys: {
-    icon: '⚡', label: 'Baileys', color: '#ECB22E',
+    icon: '', label: 'Baileys', color: '#ECB22E',
     riskTier: 3,
     riskLevel: 'Risco moderado-alto',
     riskReason: 'Não abre navegador — conversa direto com os servidores',

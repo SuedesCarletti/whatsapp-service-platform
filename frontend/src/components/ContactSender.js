@@ -542,7 +542,7 @@ const ContactSender = ({ conversation, onClose, onSent }) => {
 
           {success && (
             <div className="contact-sender-success">
-              ✅ Contato enviado com sucesso!
+              Contato enviado com sucesso!
             </div>
           )}
         </div>

@@ -205,7 +205,7 @@ const ProductListSender = ({ conversation, onClose, onSent }) => {
           </div>
 
           {error && <div className="product-sender-error">⚠️ {error}</div>}
-          {success && <div className="product-sender-success">✅ Lista de produtos enviada com sucesso!</div>}
+          {success && <div className="product-sender-success">Lista de produtos enviada com sucesso!</div>}
         </div>
 
         <div className="product-sender-footer">

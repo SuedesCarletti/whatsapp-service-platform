@@ -61,7 +61,7 @@ const formatTime = (timestamp) => {
 const getInitials = (name) => {
   if (!name) return '?';
   const clean = name.trim();
-  // Sem contato salvo o "nome" é o telefone formatado (ex: "+55 27 99583-6548")
+  // Sem contato salvo o "nome" é o telefone formatado (ex: "+55 11 99999-0003")
   // — sem isso, pegava o "+" e o DDD ("+2") em vez de algo que identifique o
   // contato. Usa os 2 últimos dígitos do número, que variam por contato.
   if (/^\+?\d/.test(clean)) {

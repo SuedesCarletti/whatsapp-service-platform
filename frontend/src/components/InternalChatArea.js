@@ -681,7 +681,7 @@ const InternalChatArea = ({
                     {attachmentCount > 0 && <span>📎 {attachmentCount}</span>}
                   </div>
                   {isDone && t.completed_by && (
-                    <div style={{ fontSize: 11, opacity: 0.6, marginTop: 2 }}>✅ Concluída por {t.completed_by.full_name}</div>
+                    <div style={{ fontSize: 11, opacity: 0.6, marginTop: 2 }}>Concluída por {t.completed_by.full_name}</div>
                   )}
                   {t.approved_by && (
                     <div style={{ fontSize: 11, opacity: 0.6, marginTop: 2 }}>👍 Aprovada por {t.approved_by.full_name}</div>

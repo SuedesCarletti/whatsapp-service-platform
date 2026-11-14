@@ -11,7 +11,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import '../styles/SessionQRCode.css';
 
 const PROVIDER_LABELS = {
-  baileys:         { name: 'Baileys',      color: '#ECB22E', emoji: '⚡' },
+  baileys:         { name: 'Baileys',      color: '#ECB22E', emoji: '' },
   venom:           { name: 'Venom',        color: '#E01E5A', emoji: '🦾' },
   wppconnect:      { name: 'WPPConnect',   color: '#9333EA', emoji: '🔌' },
   whatsapp_web_js: { name: 'WA-Web.js',   color: '#FF6B35', emoji: '🌐' },

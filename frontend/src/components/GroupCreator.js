@@ -75,7 +75,7 @@ const GroupCreator = ({ accountId, onClose, onRefreshConversations }) => {
         <div style={styles.body}>
           {success ? (
             <div style={styles.successBox}>
-              <div style={{ fontSize: 40, textAlign: 'center' }}>✅</div>
+              <div style={{ fontSize: 40, textAlign: 'center' }}></div>
               <p style={{ textAlign: 'center', fontWeight: 600 }}>{mode === 'create' ? 'Grupo criado com sucesso!' : 'Você entrou no grupo!'}</p>
               <p style={{ fontSize: 13, color: 'var(--text-secondary, #888)', textAlign: 'center' }}>
                 O grupo aparecerá na lista de conversas em alguns segundos.<br/>

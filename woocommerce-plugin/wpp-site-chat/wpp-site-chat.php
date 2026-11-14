@@ -5,7 +5,8 @@
  * Version: 1.2.0
  * Requires at least: 5.8
  * Requires PHP: 7.4
- * Author: WPP Lab
+ * Author: Suedes Carletti
+ * License: Todos os direitos reservados / All rights reserved
  * Text Domain: wpp-site-chat
  */
 

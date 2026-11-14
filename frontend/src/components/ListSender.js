@@ -349,7 +349,7 @@ const ListSender = ({ conversation, onClose, onSent }) => {
 
           {success && (
             <div className="list-sender-success">
-              ✅ Lista enviada com sucesso!
+              Lista enviada com sucesso!
             </div>
           )}
         </div>

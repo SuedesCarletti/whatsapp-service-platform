@@ -464,7 +464,7 @@ const FlowSender = ({ conversation, onClose, onSent }) => {
 
           {success && (
             <div className="flow-sender-success">
-              ✅ Flow enviado com sucesso!
+              Flow enviado com sucesso!
             </div>
           )}
         </div>

@@ -5,7 +5,7 @@
  * Abas:
  *   Geral           → tema, idioma, sons, notificações
  *   Contas WA       → lista de contas + ProviderOnboarding + ProviderSelectorComplete
- *                         + SessionQRCode inline para Baileys/Venom/WPPConnect ← NOVO
+ *                         + SessionQRCode inline para Baileys/Venom/WPPConnect
  *   Minha Conta     → troca de senha do usuário logado (salva em /api/settings/me/password)
  *   Analytics       → AnalyticsDashboard embedded via CSS
  *   Perfil Negócio  → BusinessProfile embedded via CSS
@@ -66,7 +66,7 @@ import '../styles/SettingsModal.css';
 const AUTH_STATUS = {
   PENDING:       { label: 'Pendente',     color: '#8696a0', icon: '⏳' },
   QR_REQUIRED:   { label: 'Aguard. QR',  color: '#ECB22E', icon: '📱' },
-  AUTHENTICATED: { label: 'Autenticado', color: '#2FAE60', icon: '✅' },
+  AUTHENTICATED: { label: 'Autenticado', color: '#2FAE60', icon: '' },
   DISCONNECTED:  { label: 'Desconec.',   color: '#F44336', icon: '❌' },
   BANNED:        { label: 'Banido',      color: '#F44336', icon: '🚫' },
 };
@@ -77,7 +77,7 @@ const PROVIDER_VISUAL = {
   meta_cloud_coexistence: { icon: '🔗', color: '#128C7E', label: 'Meta Coexistence' },
   meta_cloud_mmlite:      { icon: '📣', color: '#075E54', label: 'Meta MM Lite' },
   meta_cloud_full:        { icon: '🚀', color: '#34B7F1', label: 'Meta Full Stack' },
-  baileys:                { icon: '⚡', color: '#ECB22E', label: 'Baileys' },
+  baileys:                { icon: '', color: '#ECB22E', label: 'Baileys' },
   venom:                  { icon: '🦾', color: '#E01E5A', label: 'Venom' },
   whatsapp_web_js:        { icon: '🌐', color: '#FF6B35', label: 'WhatsApp-Web.js' },
   wppconnect:             { icon: '🔌', color: '#9333EA', label: 'WPPConnect' },
@@ -126,7 +126,7 @@ const SETTINGS_TAB_PERMS = {
   automations:       ['settings_auto_reply', 'settings_business_hours', 'settings_csat', 'settings_sla'],
 };
 
-// Mesma lógica de backend/utils/display_name.py — só pra prévia instantânea
+// Mesma lógica de backend/utils/display_name.py — só pra prévia instantnea
 // aqui na tela; o valor que vale de verdade é sempre o que o backend calcula
 // (mensagem pro cliente e chat interno são formatados lá, não aqui).
 const previewDisplayName = (fullName, fmt) => {
@@ -184,13 +184,13 @@ const SettingsModal = ({
   //   list        → lista de contas existentes
   //   help        → ProviderSelectorComplete (quiz de recomendação)
   //   add         → ProviderOnboarding (wizard completo)
-  //   session_qr  → SessionQRCode inline (Baileys/Venom/WPPConnect) ← NOVO
+  //   session_qr  → SessionQRCode inline (Baileys/Venom/WPPConnect)
   const [accounts,        setAccounts]       = useState([]);
   const [accountsLoading, setAccountsLoading]= useState(false);
   const [accountFlow,     setAccountFlow]    = useState('list');
   // providerType vindo do quiz, passado como initialProviderType ao Onboarding
   const [suggestedProvider, setSuggestedProvider] = useState(null);
-  // Conta selecionada para QR de sessão { id, account_name, provider_type } ← NOVO
+  // Conta selecionada para QR de sessão { id, account_name, provider_type }
   const [sessionQRAccount, setSessionQRAccount] = useState(null);
   const [editingAccount, setEditingAccount] = useState(null);
   const [creatingFallback, setCreatingFallback] = useState(false);
@@ -987,7 +987,7 @@ const SettingsModal = ({
                   )}
                   {notifications && browserNotifPermission === 'granted' && (
                     <div style={{ fontSize: 11.5, color: 'var(--whatsapp-green, #25D366)', marginTop: 6 }}>
-                      ✅ Permitido pelo navegador.
+                      Permitido pelo navegador.
                     </div>
                   )}
                   {notifications && browserNotifPermission === 'unsupported' && (
@@ -1125,10 +1125,10 @@ const SettingsModal = ({
                                           const status = await apiService.getSubscribedApps(acc.id);
                                           if (status.subscribed) {
                                             const appName = status.data?.[0]?.whatsapp_business_api_data?.name || 'App';
-                                            alert(`✅ Webhook OK — ${appName} está inscrito e recebendo mensagens dessa conta.`);
+                                            alert(`Webhook OK — ${appName} está inscrito e recebendo mensagens dessa conta.`);
                                           } else if (window.confirm('⚠️ O App não está inscrito no webhook dessa conta — por isso mensagens/status podem não estar chegando no sistema.\n\nInscrever agora?')) {
                                             await apiService.subscribeApp(acc.id);
-                                            alert('✅ Inscrito com sucesso! Mensagens dessa conta devem começar a chegar.');
+                                            alert('Inscrito com sucesso! Mensagens dessa conta devem começar a chegar.');
                                           }
                                         } catch (e) {
                                           alert(e?.response?.data?.detail || 'Erro ao verificar o webhook.');
@@ -1145,7 +1145,7 @@ const SettingsModal = ({
                                       onClick={async () => {
                                         try {
                                           const status = await apiService.getMMLiteStatus(acc.id);
-                                          alert(`${status.ready ? '✅' : 'ℹ️'} MM Lite — ${status.onboarding_status}\n\n${status.message}`);
+                                          alert(`${status.ready ? '' : 'ℹ️'} MM Lite — ${status.onboarding_status}\n\n${status.message}`);
                                         } catch (e) {
                                           alert(e?.response?.data?.detail || 'Erro ao verificar o status do MM Lite.');
                                         }
@@ -1187,7 +1187,7 @@ const SettingsModal = ({
                                           const status = await apiService.getCoexistenceStatus(acc.id);
                                           const pct = status.history_sync.progress_pct;
                                           alert(
-                                            `${status.ready ? '✅' : 'ℹ️'} Coexistência\n\n${status.message}\n\n` +
+                                            `${status.ready ? '' : 'ℹ️'} Coexistência\n\n${status.message}\n\n` +
                                             `Histórico: ${status.history_sync.chunks_received} pacote(s)${pct != null ? ` (${pct}%)` : ''}\n` +
                                             `Eventos de sincronização: ${status.app_state_sync.events_received}\n` +
                                             `Ecos de mensagem do app: ${status.message_echoes.echoes_received}`
@@ -1282,7 +1282,7 @@ const SettingsModal = ({
                   </div>
                 )}
 
-                {/* ── VIEW: QR ou Pairing Code — WhatsAppLinkPanel NOVO ── */}
+                {/* ── VIEW: QR ou Pairing Code — WhatsAppLinkPanel ── */}
                 {accountFlow === 'session_qr' && sessionQRAccount && (
                   <div className="sm-session-qr-pane">
                     {/* Botão voltar */}
@@ -1409,7 +1409,7 @@ const SettingsModal = ({
                           {fb ? (
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                               <span className="sm-status-chip" style={{ color: fb.is_authenticated ? '#25D366' : '#e67e22' }}>
-                                {fb.is_authenticated ? '✅ Vinculado e ativo' : '⏳ Aguardando parear (QR/código)'}
+                                {fb.is_authenticated ? 'Vinculado e ativo' : '⏳ Aguardando parear (QR/código)'}
                               </span>
                               {!fb.is_authenticated && (
                                 <button
@@ -1797,7 +1797,7 @@ Content-Type: application/json
                         />
                         <small style={{ opacity: 0.7 }}>
                           Normalmente NÃO precisa preencher — a Coexistência usa a mesma configuração de login acima,
-                          só muda um parâmetro enviado na hora do login (confirmado no App Dashboard da Meta). Só
+                          só muda um parmetro enviado na hora do login (confirmado no App Dashboard da Meta). Só
                           preencha aqui se você criou de propósito uma configuração separada pra esse caso de uso.
                         </small>
                       </div>

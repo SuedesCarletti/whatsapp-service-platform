@@ -410,7 +410,7 @@ const AdminDashboardTab = ({ API }) => {
               alert={stats.attendance.sla_breaches_now > 0}
               sub={`Esperando > ${stats.attendance.sla_wait_minutes}min sem atendente`}
             />
-            <StatCard icon="✅" label={`Resolvidas (${periodLabel})`} value={stats.attendance.resolved_count} />
+            <StatCard icon="" label={`Resolvidas (${periodLabel})`} value={stats.attendance.resolved_count} />
             <StatCard
               icon="⏱️" label="Tempo médio de resolução" value={formatDuration(stats.attendance.avg_resolution_seconds)}
               sub={`Espera: ${formatDuration(stats.attendance.avg_wait_seconds)}`}
@@ -490,9 +490,9 @@ const AdminDashboardTab = ({ API }) => {
             </div>
           </div>
 
-          <h3 className="dashboard-section-title">⭐ Satisfação (CSAT, {periodLabel})</h3>
+          <h3 className="dashboard-section-title">Satisfação (CSAT, {periodLabel})</h3>
           <div className="stats-grid">
-            <StatCard icon="⭐" label="Nota média" value={stats.csat.avg_rating ?? '—'} sub={stats.csat.avg_rating ? 'de 5' : 'sem respostas no período'} />
+            <StatCard icon="" label="Nota média" value={stats.csat.avg_rating ?? '—'} sub={stats.csat.avg_rating ? 'de 5' : 'sem respostas no período'} />
             <StatCard icon="📝" label="Respostas recebidas" value={stats.csat.response_count} />
             <StatCard icon="📈" label="Taxa de resposta" value={formatPercent(stats.csat.response_rate)} />
           </div>
@@ -538,7 +538,7 @@ const AdminDashboardTab = ({ API }) => {
           <div className="stats-grid">
             <StatCard icon="📌" label="Pendentes" value={stats.tasks.pending} />
             <StatCard icon="⚠️" label="Atrasadas" value={stats.tasks.overdue} alert={stats.tasks.overdue > 0} />
-            <StatCard icon="✅" label={`Concluídas (${periodLabel})`} value={stats.tasks.completed_count} />
+            <StatCard icon="" label={`Concluídas (${periodLabel})`} value={stats.tasks.completed_count} />
           </div>
 
           <h3 className="dashboard-section-title">🏷️ Motivos e canais ({periodLabel})</h3>

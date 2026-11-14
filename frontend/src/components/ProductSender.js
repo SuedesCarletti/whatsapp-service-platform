@@ -200,7 +200,7 @@ const ProductSender = ({ conversation, onClose, onSent }) => {
 
           {success && (
             <div className="product-sender-success">
-              ✅ Produto enviado com sucesso!
+              Produto enviado com sucesso!
             </div>
           )}
         </div>

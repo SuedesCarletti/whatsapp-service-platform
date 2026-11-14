@@ -24,7 +24,7 @@ import '../styles/WhatsAppLinkPanel.css';
 // ─── Constantes ───────────────────────────────────────────────
 
 const PROVIDER_LABELS = {
-  baileys:         { name: 'Baileys',    color: '#ECB22E', icon: '⚡' },
+  baileys:         { name: 'Baileys',    color: '#ECB22E', icon: '' },
   venom:           { name: 'Venom',      color: '#E01E5A', icon: '🦾' },
   wppconnect:      { name: 'WPPConnect', color: '#9333EA', icon: '🔌' },
   whatsapp_web_js: { name: 'WA-Web.js',  color: '#FF6B35', icon: '🌐' },

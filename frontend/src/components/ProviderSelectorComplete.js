@@ -122,7 +122,7 @@ const ProviderSelectorComplete = ({ onProviderSelected, onCancel }) => {
               className={userNeeds.needsApp === true ? 'selected' : ''}
               onClick={() => setUserNeeds({ ...userNeeds, needsApp: true })}
             >
-              ✅ Sim, quero app + painel web
+              Sim, quero app + painel web
             </button>
             <button
               className={userNeeds.needsApp === false ? 'selected' : ''}
@@ -238,7 +238,7 @@ const ProviderSelectorComplete = ({ onProviderSelected, onCancel }) => {
             <p><strong>Risco:</strong> {providers[recommendedProvider].risk}</p>
 
             {providers[recommendedProvider].needsApp && (
-              <div className="highlight">✅ Permite usar app no celular!</div>
+              <div className="highlight">Permite usar app no celular!</div>
             )}
             {providers[recommendedProvider].forMarketing && (
               <div className="highlight">📣 Otimizado para marketing!</div>

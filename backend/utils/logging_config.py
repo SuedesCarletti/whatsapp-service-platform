@@ -175,7 +175,7 @@ def log_webhook(logger, webhook_type: str, payload: dict):
 
 def log_api_request(logger, method: str, path: str, status: int, duration_ms: float):
     """Helper para logar requests de API"""
-    emoji = "✅" if 200 <= status < 300 else "❌"
+    emoji = "" if 200 <= status < 300 else "❌"
     logger.info(f"{emoji} {method:6} {path:40} {status} ({duration_ms:.2f}ms)")
 
 

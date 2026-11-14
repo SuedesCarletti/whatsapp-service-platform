@@ -763,7 +763,7 @@ const AdminPanel = ({ onClose, isAdmin = false, permissions = {} }) => {
   const renderApprovals = () => (
     <div className="admin-approvals">
       <div className="section-header">
-        <h2>✅ Aprovações Pendentes</h2>
+        <h2>Aprovações Pendentes</h2>
       </div>
 
       {pendingChanges.length === 0 ? (
@@ -780,7 +780,7 @@ const AdminPanel = ({ onClose, isAdmin = false, permissions = {} }) => {
                 </div>
               </div>
               <div className="approval-actions">
-                <button className="btn-primary" onClick={() => handleApproveChange(pc.id)}>✅ Aprovar</button>
+                <button className="btn-primary" onClick={() => handleApproveChange(pc.id)}>Aprovar</button>
                 <button className="btn-delete" onClick={() => handleRejectChange(pc.id)}>❌ Rejeitar</button>
               </div>
             </div>
@@ -890,7 +890,7 @@ const AdminPanel = ({ onClose, isAdmin = false, permissions = {} }) => {
               className={activeTab === 'approvals' ? 'active' : ''}
               onClick={() => setActiveTab('approvals')}
             >
-              ✅ Aprovações
+              Aprovações
               {pendingCount > 0 && <span className="admin-nav-badge">{pendingCount}</span>}
             </button>
           )}
@@ -1119,7 +1119,7 @@ const RoleModal = ({ role, onClose, onSave }) => {
         value={sensitiveValue(p.key)}
         onChange={(e) => setPermissionValue(p.key, e.target.value)}
       >
-        <option value="true">✅ Permitir</option>
+        <option value="true">Permitir</option>
         <option value="require_approval">⏳ Requer aprovação de admin</option>
         <option value="false">🚫 Negar</option>
       </select>

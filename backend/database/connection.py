@@ -1,6 +1,6 @@
 """
 Configuração e conexão com o banco de dados MySQL
-✅ SUPORTE SSL/TLS FORÇADO para Railway, TiDB Cloud e outros bancos cloud
+SUPORTE SSL/TLS FORÇADO para Railway, TiDB Cloud e outros bancos cloud
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base

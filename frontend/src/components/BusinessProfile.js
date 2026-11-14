@@ -188,7 +188,7 @@ const BusinessProfile = ({ onClose }) => {
 
           {success && (
             <div className="business-profile-success">
-              ✅ Perfil atualizado com sucesso!
+              Perfil atualizado com sucesso!
             </div>
           )}
 

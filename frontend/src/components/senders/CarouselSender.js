@@ -1,5 +1,5 @@
 // LOCALIZAÇÃO: Criar novo arquivo em /frontend/src/components/senders/
-// ARQUIVO COMPLETO NOVO
+// 
 
 import React, { useState } from 'react';
 import { MdClose, MdAddCircle, MdRemoveCircle, MdImage } from 'react-icons/md';

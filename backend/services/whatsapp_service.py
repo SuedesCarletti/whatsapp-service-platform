@@ -226,7 +226,7 @@ class WhatsAppService:
         image_id: Optional[str] = None,
         image_link: Optional[str] = None,
         caption: Optional[str] = None,
-        reply_to: Optional[str] = None  # NOVO
+        reply_to: Optional[str] = None
     ) -> Dict[str, Any]:
         """Envia imagem (via ID de mídia ou URL)"""
         if not image_id and not image_link:
@@ -388,7 +388,7 @@ class WhatsAppService:
         
         return await self._send_request("POST", "/messages", json_data=payload)
     
-    # NOVO: ENVIO DE CONTATOS
+  # ENVIO DE CONTATOS
     
     async def send_contacts(
         self,
@@ -462,7 +462,7 @@ class WhatsAppService:
         logger.info(f"Enviando {len(contacts)} contato(s) para {to}")
         return await self._send_request("POST", "/messages", json_data=payload)
     
-    # NOVO: MENSAGENS INTERATIVAS
+  # MENSAGENS INTERATIVAS
     
     async def send_interactive_buttons(
         self,
@@ -764,7 +764,7 @@ class WhatsAppService:
         logger.info(f"Enviando lista de produtos para {to}")
         return await self._send_request("POST", "/messages", json_data=payload)
     
-    # NOVO: REAÇÕES
+  # REAÇÕES
     
     async def send_reaction(
         self,

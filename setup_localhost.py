@@ -99,7 +99,7 @@ def setup_database():
     print("   mysql -u root -p < scripts/create_database.sql")
     print("\nOu copie e cole o conteúdo de scripts/create_database.sql no MySQL Workbench")
     
-    response = input("\n✅ Banco de dados criado? (s/N): ")
+    response = input("\nBanco de dados criado? (s/N): ")
     if response.lower() == 's':
         print("Banco de dados configurado!")
     else:
